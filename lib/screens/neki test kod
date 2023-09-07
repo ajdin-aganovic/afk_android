@@ -1,0 +1,403 @@
+import 'package:flutter/material.dart';
+
+/// Flutter code sample for [Radio].
+
+void main() => runApp(const RadioExampleApp());
+
+class RadioExampleApp extends StatelessWidget {
+  const RadioExampleApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Radio Sample')),
+        body: const Center(
+          child: RadioExample(),
+        ),
+      ),
+    );
+  }
+}
+
+enum SingingCharacter { lafayette, jefferson }
+
+class RadioExample extends StatefulWidget {
+  const RadioExample({super.key});
+
+  @override
+  State<RadioExample> createState() => _RadioExampleState();
+}
+
+class _RadioExampleState extends State<RadioExample> {
+  SingingCharacter? _character = SingingCharacter.lafayette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: const Text('Lafayette'),
+          leading: Radio<SingingCharacter>(
+            value: SingingCharacter.lafayette,
+            groupValue: _character,
+            onChanged: (SingingCharacter? value) {
+              setState(() {
+                _character = value;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          title: const Text('Thomas Jefferson'),
+          leading: Radio<SingingCharacter>(
+            value: SingingCharacter.jefferson,
+            groupValue: _character,
+            onChanged: (SingingCharacter? value) {
+              setState(() {
+                _character = value;
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+// Form(
+            //   key: _formKey,
+            //   child: Column(
+            //     children: [
+            //       TextFormField(
+            //         controller: _korisnikIdController,
+            //         decoration: InputDecoration(labelText: 'KorisnikId'),
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the Id';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       TextFormField(
+            //         controller: _imeController,
+            //         decoration: InputDecoration(labelText: 'Ime'),
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the Ime';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       TextFormField(
+            //         controller: _prezimeController,
+            //         decoration: InputDecoration(labelText: 'Prezime'),
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the Prezime';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       TextFormField(
+            //         controller: _korisnickoImeController,
+            //         decoration: InputDecoration(labelText: 'KorisnickoIme'),
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the KorisnickoIme';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       TextFormField(
+            //         controller: _emailController,
+            //         decoration: InputDecoration(labelText: 'Email'),
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the Email';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       TextFormField(
+            //         controller: _lozinkaController,
+            //         decoration: InputDecoration(labelText: 'Password'),
+            //         obscureText: true,
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the Lozinka';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       TextFormField(
+            //         controller: _lozinkaProvjeraController,
+            //         decoration: InputDecoration(labelText: 'PasswordProvjera'),
+            //         obscureText: true,
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty || value!=_lozinkaController.text) {
+            //             return 'Please enter the PasswordProvjera';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+
+            //       FormBuilderDropdown(
+            //         name: 'strucnaSprema',
+            //         decoration: InputDecoration(labelText: 'StrucnaSprema'),
+            //         items: const[ 
+            //           DropdownMenuItem(value: 'SSS', child: Text('SSS'),), 
+            //           DropdownMenuItem(value: 'VSS', child: Text('VSS'),), 
+            //           DropdownMenuItem(value: 'BA', child: Text('BA'),), 
+            //           DropdownMenuItem(value: 'MA', child: Text('MA'),), 
+            //           DropdownMenuItem(value: 'No option', child: Text('No option'),), 
+            //         ],
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _strucnaSpremaController.text = value!.toString();
+            //           });
+            //         },
+            //         validator: (value) {
+            //           if (value == null) {
+            //             return 'Please enter the Stručna sprema';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+
+            //         TextFormField(
+            //         controller: _datumRodjenjaController,
+            //         decoration: InputDecoration(icon: Icon(Icons.calendar_today),labelText: 'Datum rođenja'),
+            //         readOnly: true,
+            //         onTap: ()async {
+            //           DateTime? pickedDate=await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1950), lastDate: DateTime(2035));
+
+            //           if(pickedDate != null)
+            //           {
+            //             print(pickedDate);
+            //             String formattedDate=DateFormat('yyyy-MM-dd').format(pickedDate);
+            //             print(formattedDate);
+
+            //             setState(() {
+            //               _datumRodjenjaController.text=formattedDate;
+            //             });
+            //           }
+            //           else
+            //             {
+            //               print("Date is not selected");
+            //             }
+
+            //         },
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the PodUgovoromOd';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       // FormBuilderDateTimePicker(
+            //       //   name: 'DatumRodjenja',
+            //       //   initialValue: DateTime.now(),
+            //       //   inputType: InputType.date,
+            //       //   decoration: InputDecoration(labelText: 'Select a Date'),
+            //       //   onChanged: (value) async{
+            //       //     DateTime? pickedDate=await value;
+            //       //     if(pickedDate!=null)
+            //       //     {
+            //       //       String formattedDate=DateFormat('yyyy-MM-dd').format(pickedDate);
+            //       //       setState(() {
+            //       //         _datumRodjenjaController.text=formattedDate;
+            //       //       });
+            //       //     }
+            //       //     else
+            //       //     {
+            //       //       String defaultDate=DateFormat('yyyy-MM-dd').format(DateTime.now());
+            //       //       _datumRodjenjaController.text=defaultDate;
+            //       //     }
+            //       //   },
+            //       //   validator:(value) {
+            //       //     if (value == null) {
+            //       //       return 'Please enter the DatumRodjenja';
+            //       //     }
+            //       //     return null;
+            //       //   },
+            //       // ),
+                  
+            //       FormBuilderDropdown(
+            //         name: 'podUgovorom',
+            //         decoration: InputDecoration(labelText: 'Pod Ugovorom'),
+            //         items: const[ 
+            //           DropdownMenuItem(value: true, child: Text('true'),), 
+            //           DropdownMenuItem(value: false, child: Text('false'),), 
+            //         ],
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _podUgovoromController.text = value!.toString();
+            //           });
+            //         },
+            //         validator: (value) {
+            //           if (value == null) {
+            //             return 'Please enter the PodUgovorom';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+
+            //       TextFormField(
+            //         controller: _podUgovoromOdController,
+            //         decoration: InputDecoration(icon: Icon(Icons.calendar_today),labelText: 'PodUgovoromOd'),
+            //         readOnly: true,
+            //         onTap: ()async {
+            //           DateTime? pickedDate=await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2018), lastDate: DateTime(2035));
+
+            //           if(pickedDate != null)
+            //           {
+            //             print(pickedDate);
+            //             String formattedDate=DateFormat('yyyy-MM-dd').format(pickedDate);
+            //             print(formattedDate);
+
+            //             setState(() {
+            //               _podUgovoromOdController.text=formattedDate;
+            //             });
+            //           }
+            //           else
+            //             {
+            //               print("Date is not selected");
+            //             }
+
+            //         },
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the PodUgovoromOd';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       TextFormField(
+            //         controller: _podUgovoromDoController,
+            //         decoration: InputDecoration(icon: Icon(Icons.calendar_today), labelText: 'PodUgovoromDo'),
+            //         readOnly: true,
+            //         onTap: ()async {
+            //           DateTime? pickedDate=await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2018), lastDate: DateTime(2035));
+
+            //           if(pickedDate != null)
+            //           {
+            //             print(pickedDate);
+            //             String formattedDate=DateFormat('yyyy-MM-dd').format(pickedDate);
+            //             print(formattedDate);
+
+            //             setState(() {
+            //               _podUgovoromDoController.text=formattedDate;
+            //             });
+            //           }
+            //           else
+            //             {
+            //               print("Date is not selected");
+            //             }
+
+            //         },
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter the PodUgovoromDo';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+
+            //       FormBuilderDropdown(
+            //         name: 'uloga',
+            //         decoration: InputDecoration(labelText: 'Uloga'),
+            //         items: const[ 
+            //           DropdownMenuItem(value: 'Igrač', child: Text('Igrač'),), 
+            //           DropdownMenuItem(value: 'Glavni trener', child: Text('Glavni trener'),), 
+            //           DropdownMenuItem(value: 'Pomoćni trener', child: Text('Pomoćni trener'),), 
+            //           DropdownMenuItem(value: 'Administrator', child: Text('Administrator'),), 
+            //           DropdownMenuItem(value: 'Bez uloge', child: Text('Bez uloge'),), 
+            //         ],
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _ulogaController.text = value!.toString();
+            //           });
+            //         },
+            //         validator: (value) {
+            //           if (value == null) {
+            //             return 'Please enter the Uloga';
+            //           }
+            //           return null;
+            //         },
+            //       ),
+                  
+            //       // Add form fields for other properties of Korisnik
+            //       ElevatedButton(
+            //         onPressed: () {
+            //           if (_formKey.currentState!.validate()) {
+            //             // Create a Korisnik object using the entered values
+                        
+            //           String generateSalt() {
+            //             final random = Random.secure();
+            //             final List<int> saltBytes = List<int>.generate(16, (_) => random.nextInt(256));
+            //             return base64Encode(saltBytes);
+            //             }
+
+            //             String generateHash(String password) {
+            //             final salt=generateSalt();
+            //             final src = base64.decode(salt);
+            //             final bytes = utf8.encode(password);
+            //             final dst = Uint8List(src.length + bytes.length);
+
+            //             dst.setAll(0, src);
+            //             dst.setAll(src.length, bytes);
+
+            //             final algorithm = sha1;
+            //             final inArray = algorithm.convert(dst).bytes;
+            //             return base64.encode(inArray);
+            //           }
+
+            //           String lozinkaOdozgo=_lozinkaController.text;
+
+            //             var korisnik=Korisnik(
+            //               0,
+            //              _imeController.text,
+            //               _prezimeController.text,
+            //                _korisnickoImeController.text,
+            //                 _emailController.text,
+            //                  generateHash(lozinkaOdozgo),
+            //                   generateSalt(),
+            //                    _strucnaSpremaController.text,
+            //                     DateTime.parse(_datumRodjenjaController.text),
+            //                      bool.parse(_podUgovoromController.text),
+            //                       DateTime.parse(_podUgovoromOdController.text),
+            //                        DateTime.parse(_podUgovoromDoController.text),
+            //                         _ulogaController.text
+            //             // 0,
+            //             //  "Test",
+            //             //   "Test",
+            //             //    "Test",
+            //             //     "Test",
+            //             //      "string",
+            //             //       "string",
+            //             //        "SSS",
+            //             //         DateTime.parse("2000-01-01"),
+            //             //          true,
+            //             //           DateTime.parse("2023-05-05"),
+            //             //            DateTime.parse("2023-10-10"),
+            //             //             "Administrator"
+            //             );
+
+            //             // Call the insertKorisnik method to perform the insert operation
+            //             insertKorisnik(korisnik);
+
+            //             // Navigate back to the previous screen
+            //             Navigator.of(context).push(
+            //               MaterialPageRoute(
+            //               builder: (context) => KorisniciListScreen()
+            //               ),
+            //             );
+            //           }
+            //         },
+            //         child: Text('Add new user'),
+            //       ),
+            //     ],
+            //   ),
+            // ),

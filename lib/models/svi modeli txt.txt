@@ -1,0 +1,69 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'korisnik.g.dart';
+
+@JsonSerializable()
+class Korisnik{
+   int? korisnikId;
+  String? ime;
+  String? prezime;
+  String? email;
+  String? lozinkaHash;
+  String? lozinkaSalt;
+  String? strucnaSprema;
+  DateTime? datumRodjenja;
+  bool? podUgovorom;
+  DateTime? podUgovoromOd;
+  DateTime? podUgovoromDo;
+  String? korisnickoIme;
+
+
+  Korisnik(this.datumRodjenja, this.email, this.ime, this.korisnickoIme, this.korisnikId, this.lozinkaHash, this.lozinkaSalt, this.podUgovorom,
+  this.podUgovoromDo, this.podUgovoromOd, this.prezime, this.strucnaSprema);
+  // factory Korisnici.fromJson(Map<String,dynamic>json)=>_$KorisniciFromJson(json);
+
+  factory Korisnik.fromJson(Map<String,dynamic>json)=>_$KorisnikFromJson(json);
+  Map<String,dynamic>toJson()=>_$KorisnikToJson(this);
+}
+
+//KorisnikBolest
+public int KorisnikBolestId { get; set; }
+
+public int KorisnikId { get; set; }
+
+public int BolestId { get; set; }
+
+//KorisnikPozicija
+
+public int KorisnikPozicijaId { get; set; }
+
+public int? KorisnikId { get; set; }
+
+public int? PozicijaId { get; set; }
+
+//KorisnikTransakcijskiRacun
+
+public int KorisnikTransakcijskiRacunId { get; set; }
+
+public int KorisnikId { get; set; }
+
+public int TransakcijskiRacunId { get; set; }
+
+public DateTime? DatumIzmjene { get; set; }
+
+//KorisnikUloga
+
+public int KorisnikUlogaId { get; set; }
+
+public int KorisnikId { get; set; }
+
+public int UlogaId { get; set; }
+
+public DateTime? DatumIzmjene { get; set; }
+
+//TreningStadion
+
+public int TreningStadionId { get; set; }
+
+public int? TreningId { get; set; }
+
+public int? StadionId { get; set; }

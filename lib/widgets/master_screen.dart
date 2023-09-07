@@ -1,14 +1,14 @@
-import 'package:afk_admin/main.dart';
-import 'package:afk_admin/models/search_result.dart';
-import 'package:afk_admin/screens/korisnik_details_screen.dart';
-import 'package:afk_admin/screens/plata_details_screen.dart';
-import 'package:afk_admin/screens/plata_list_screen.dart';
-import 'package:afk_admin/screens/korisnici_list_screen.dart';
-import 'package:afk_admin/screens/termin_details_screen.dart';
-import 'package:afk_admin/screens/transakcijski_racun_details.dart';
-import 'package:afk_admin/screens/transakcijski_racun_list_screen.dart';
-import 'package:afk_admin/screens/trening_details_screen.dart';
-import 'package:afk_admin/utils/util.dart';
+import 'package:afk_android/main.dart';
+import 'package:afk_android/models/search_result.dart';
+import 'package:afk_android/screens/korisnik_details_screen.dart';
+import 'package:afk_android/screens/plata_details_screen.dart';
+import 'package:afk_android/screens/plata_list_screen.dart';
+import 'package:afk_android/screens/korisnici_list_screen.dart';
+import 'package:afk_android/screens/termin_details_screen.dart';
+import 'package:afk_android/screens/transakcijski_racun_details.dart';
+import 'package:afk_android/screens/transakcijski_racun_list_screen.dart';
+import 'package:afk_android/screens/trening_details_screen.dart';
+import 'package:afk_android/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 

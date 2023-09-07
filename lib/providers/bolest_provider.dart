@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/bolest.dart';
+import 'package:afk_android/models/bolest.dart';
 
 import 'base_provider.dart';
 

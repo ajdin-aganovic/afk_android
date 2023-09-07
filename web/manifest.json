@@ -1,6 +1,6 @@
 {
-    "name": "afk_admin",
-    "short_name": "afk_admin",
+    "name": "afk_android",
+    "short_name": "afk_android",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

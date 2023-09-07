@@ -1,7 +1,7 @@
-import 'package:afk_admin/models/search_result.dart';
-import 'package:afk_admin/providers/platum_provider.dart';
-import 'package:afk_admin/screens/plata_details_screen.dart';
-import 'package:afk_admin/widgets/master_screen.dart';
+import 'package:afk_android/models/search_result.dart';
+import 'package:afk_android/providers/platum_provider.dart';
+import 'package:afk_android/screens/plata_details_screen.dart';
+import 'package:afk_android/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 import 'package:intl/intl.dart';

@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/statistika.dart';
+import 'package:afk_android/models/statistika.dart';
 
 import 'base_provider.dart';
 

@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/platum.dart';
+import 'package:afk_android/models/platum.dart';
 
 import 'base_provider.dart';
 

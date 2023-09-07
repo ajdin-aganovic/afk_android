@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/clanarina.dart';
+import 'package:afk_android/models/clanarina.dart';
 
 import 'base_provider.dart';
 

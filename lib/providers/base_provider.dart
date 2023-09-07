@@ -1,12 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
-import 'package:afk_admin/models/search_result.dart';
+import 'package:afk_android/models/search_result.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:http/http.dart';
+import 'package:http/http.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/io_client.dart';
 
 import '../utils/util.dart';
 
@@ -17,12 +21,14 @@ import 'korisnik_provider.dart';
 abstract class BaseProvider<T> with ChangeNotifier{
   static String? _baseUrl;
   String _endpoint="";
+  HttpClient client=new HttpClient();
+  IOClient? http;
   // late KorisnikProvider _korisniciProvider;
 
 
   BaseProvider(String endpoint){
     _endpoint=endpoint;
-    _baseUrl=const String.fromEnvironment("baseUrl",defaultValue: "https://localhost:7181/");
+    _baseUrl=const String.fromEnvironment("baseUrl",defaultValue: "https://10.0.2.2/");
 
   }
 
@@ -37,7 +43,7 @@ abstract class BaseProvider<T> with ChangeNotifier{
     var uriFullApi=Uri.parse(fullAPI);
     var headerz=createHeaders();
 
-    var response = await http.get(uriFullApi, headers: headerz);
+    var response = await http!.get(uriFullApi, headers: headerz);
 
     if(IsValidResponse(response))
     {
@@ -71,7 +77,7 @@ abstract class BaseProvider<T> with ChangeNotifier{
 
     var jsonRequest=jsonEncode(request);
 
-    var response=await http.post(uriFullApi, headers: headerz, body: jsonRequest);
+    var response=await http!.post(uriFullApi, headers: headerz, body: jsonRequest);
     if(IsValidResponse(response))
         {
           var data=jsonDecode(response.body);
@@ -89,7 +95,7 @@ abstract class BaseProvider<T> with ChangeNotifier{
 
     var jsonRequest=jsonEncode(request);
 
-    var response=await http.put(uriFullApi, headers: headerz, body: jsonRequest);
+    var response=await http!.put(uriFullApi, headers: headerz, body: jsonRequest);
     if(IsValidResponse(response)==true)
         {
           var data=jsonDecode(response.body);
@@ -107,7 +113,7 @@ abstract class BaseProvider<T> with ChangeNotifier{
 
     var jsonRequest=jsonEncode(id);
 
-    var response=await http.delete(uriFullApi, headers: headerz, body: jsonRequest);
+    var response=await http!.delete(uriFullApi, headers: headerz, body: jsonRequest);
     if(IsValidResponse(response)==true)
         {
           var data=jsonDecode(response.body);
@@ -125,7 +131,7 @@ abstract class BaseProvider<T> with ChangeNotifier{
 
     var jsonRequest=jsonEncode(id);
 
-    var response=await http.put(uriFullApi, headers: headerz, body: jsonRequest);
+    var response=await http!.put(uriFullApi, headers: headerz, body: jsonRequest);
     if(IsValidResponse(response))
         {
           var data=jsonDecode(response.body);
@@ -143,7 +149,7 @@ abstract class BaseProvider<T> with ChangeNotifier{
 
     var jsonRequest=jsonEncode(id);
 
-    var response=await http.put(uriFullApi, headers: headerz, body: jsonRequest);
+    var response=await http!.put(uriFullApi, headers: headerz, body: jsonRequest);
     if(IsValidResponse(response))
         {
           var data=jsonDecode(response.body);
@@ -163,7 +169,7 @@ abstract class BaseProvider<T> with ChangeNotifier{
 
     var jsonRequest=jsonEncode(request);
 
-    var response=await http.put(uriFullApi, headers: headerz, body: jsonRequest);
+    var response=await http!.put(uriFullApi, headers: headerz, body: jsonRequest);
     if(IsValidResponse(response)==true)
         {
           var data=jsonDecode(response.body);
@@ -220,30 +226,6 @@ bool IsValidResponse(Response response){
   
 }
 
-// String getQueryString(Map params,
-//     {String prefix= '&', bool inRecursion= false}) {
-//   String query = '';
-
-//   params.forEach((key, value) {
-//     if (inRecursion) {
-//       key = Uri.encodeComponent('[$key]');
-//     }
-
-//     if (value is String || value is int || value is double || value is bool) {
-//       query += '$prefix$key=${Uri.encodeComponent(value.toString())}';
-//     } else if (value is List || value is Map) {
-//       if (value is List) value = value.asMap();
-//       value.forEach((k, v) {
-//         query +=
-//             getQueryString({k: v}, prefix: '$prefix$key', inRecursion: true);
-//       });
-//     }
-//   });
-
-//   return inRecursion || query.isEmpty
-//       ? query
-//       : query.substring(1, query.length);
-// }
 
 
 

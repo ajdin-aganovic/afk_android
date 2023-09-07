@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/pozicija.dart';
+import 'package:afk_android/models/pozicija.dart';
 
 import 'base_provider.dart';
 

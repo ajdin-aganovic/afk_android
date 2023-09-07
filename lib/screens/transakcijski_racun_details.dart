@@ -1,16 +1,16 @@
-import 'package:afk_admin/models/platum.dart';
-import 'package:afk_admin/models/search_result.dart';
-import 'package:afk_admin/models/transakcijski_racun.dart';
-import 'package:afk_admin/providers/platum_provider.dart';
-import 'package:afk_admin/providers/transakcijski_racun_provider.dart';
-import 'package:afk_admin/screens/transakcijski_racun_list_screen.dart';
-import 'package:afk_admin/widgets/master_screen.dart';
+import 'package:afk_android/models/platum.dart';
+import 'package:afk_android/models/search_result.dart';
+import 'package:afk_android/models/transakcijski_racun.dart';
+import 'package:afk_android/providers/platum_provider.dart';
+import 'package:afk_android/providers/transakcijski_racun_provider.dart';
+import 'package:afk_android/screens/transakcijski_racun_list_screen.dart';
+import 'package:afk_android/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
-import 'package:afk_admin/providers/platum_provider.dart';
-import 'package:afk_admin/providers/uloga_provider.dart';
+import 'package:afk_android/providers/platum_provider.dart';
+import 'package:afk_android/providers/uloga_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../models/korisnik.dart';

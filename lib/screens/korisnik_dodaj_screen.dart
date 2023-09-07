@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:afk_admin/screens/korisnici_editable_screen.dart';
-import 'package:afk_admin/screens/korisnici_list_screen.dart';
-import 'package:afk_admin/screens/password_reset_admin.dart';
+import 'package:afk_android/screens/korisnici_editable_screen.dart';
+import 'package:afk_android/screens/korisnici_list_screen.dart';
+import 'package:afk_android/screens/password_reset_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:http/http.dart' as http;
@@ -18,8 +18,8 @@ import '../providers/korisnik_provider.dart';
 import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 
-import 'package:afk_admin/models/search_result.dart';
-import 'package:afk_admin/widgets/master_screen.dart';
+import 'package:afk_android/models/search_result.dart';
+import 'package:afk_android/widgets/master_screen.dart';
 import 'package:intl/intl.dart';
 
 import '../models/korisnik.dart';

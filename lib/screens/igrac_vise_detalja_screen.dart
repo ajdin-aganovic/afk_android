@@ -1,21 +1,21 @@
-import 'package:afk_admin/models/korisnik.dart';
-import 'package:afk_admin/models/search_result.dart';
-import 'package:afk_admin/providers/korisnik_pozicija_provider.dart';
-import 'package:afk_admin/providers/korisnik_uloga_provider.dart';
-import 'package:afk_admin/providers/platum_provider.dart';
-import 'package:afk_admin/screens/bolest_list_screen.dart';
-import 'package:afk_admin/screens/igrac_opcije_screen.dart';
-import 'package:afk_admin/screens/korisnici_editable_screen.dart';
-import 'package:afk_admin/screens/korisnici_list_screen.dart';
-import 'package:afk_admin/screens/korisnik_insert_screen.dart';
-import 'package:afk_admin/widgets/master_screen.dart';
+import 'package:afk_android/models/korisnik.dart';
+import 'package:afk_android/models/search_result.dart';
+import 'package:afk_android/providers/korisnik_pozicija_provider.dart';
+import 'package:afk_android/providers/korisnik_uloga_provider.dart';
+import 'package:afk_android/providers/platum_provider.dart';
+import 'package:afk_android/screens/bolest_list_screen.dart';
+import 'package:afk_android/screens/igrac_opcije_screen.dart';
+import 'package:afk_android/screens/korisnici_editable_screen.dart';
+import 'package:afk_android/screens/korisnici_list_screen.dart';
+import 'package:afk_android/screens/korisnik_insert_screen.dart';
+import 'package:afk_android/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
-import 'package:afk_admin/providers/korisnik_provider.dart';
-import 'package:afk_admin/providers/uloga_provider.dart';
-import 'package:afk_admin/screens/korisnik_details_screen.dart';
+import 'package:afk_android/providers/korisnik_provider.dart';
+import 'package:afk_android/providers/uloga_provider.dart';
+import 'package:afk_android/screens/korisnik_details_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../models/korisnik_pozicija.dart';

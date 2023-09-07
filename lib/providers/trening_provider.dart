@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/trening.dart';
+import 'package:afk_android/models/trening.dart';
 
 import 'base_provider.dart';
 

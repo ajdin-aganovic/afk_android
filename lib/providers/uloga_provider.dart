@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/uloga.dart';
+import 'package:afk_android/models/uloga.dart';
 
 import 'base_provider.dart';
 

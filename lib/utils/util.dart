@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:afk_admin/models/search_result.dart';
+import 'package:afk_android/models/search_result.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 

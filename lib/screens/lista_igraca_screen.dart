@@ -1,10 +1,10 @@
-import 'package:afk_admin/models/search_result.dart';
-import 'package:afk_admin/providers/korisnik_provider.dart';
-import 'package:afk_admin/screens/igrac_vise_detalja_screen.dart';
-import 'package:afk_admin/screens/korisnik_details_screen.dart';
-import 'package:afk_admin/screens/korisnik_insert_screen.dart';
-import 'package:afk_admin/utils/util.dart';
-import 'package:afk_admin/widgets/master_screen.dart';
+import 'package:afk_android/models/search_result.dart';
+import 'package:afk_android/providers/korisnik_provider.dart';
+import 'package:afk_android/screens/igrac_vise_detalja_screen.dart';
+import 'package:afk_android/screens/korisnik_details_screen.dart';
+import 'package:afk_android/screens/korisnik_insert_screen.dart';
+import 'package:afk_android/utils/util.dart';
+import 'package:afk_android/widgets/master_screen.dart';
 // import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

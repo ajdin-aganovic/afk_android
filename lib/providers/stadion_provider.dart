@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/stadion.dart';
+import 'package:afk_android/models/stadion.dart';
 
 import 'base_provider.dart';
 

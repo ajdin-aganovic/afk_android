@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/proizvod.dart';
+import 'package:afk_android/models/proizvod.dart';
 
 import 'base_provider.dart';
 

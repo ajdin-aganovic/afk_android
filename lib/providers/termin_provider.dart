@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/termin.dart';
+import 'package:afk_android/models/termin.dart';
 
 import 'base_provider.dart';
 

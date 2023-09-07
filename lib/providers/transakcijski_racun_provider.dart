@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/transakcijski_racun.dart';
+import 'package:afk_android/models/transakcijski_racun.dart';
 
 import 'base_provider.dart';
 

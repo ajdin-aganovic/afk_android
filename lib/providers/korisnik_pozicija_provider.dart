@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/korisnik_pozicija.dart';
+import 'package:afk_android/models/korisnik_pozicija.dart';
 
 import 'base_provider.dart';
 

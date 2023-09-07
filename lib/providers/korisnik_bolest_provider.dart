@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/korisnik_bolest.dart';
+import 'package:afk_android/models/korisnik_bolest.dart';
 
 import 'base_provider.dart';
 

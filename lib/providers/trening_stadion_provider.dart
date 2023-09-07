@@ -1,6 +1,6 @@
 
 
-import 'package:afk_admin/models/trening_stadion.dart';
+import 'package:afk_android/models/trening_stadion.dart';
 
 import 'base_provider.dart';
 

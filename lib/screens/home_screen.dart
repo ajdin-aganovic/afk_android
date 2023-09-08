@@ -95,14 +95,20 @@ final Map<String,dynamic>_initialValue={};
                                     
                                     ElevatedButton(onPressed: (){
                                     
-                                    Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                    builder: (context) => LoginPage()
+                                   Navigator.of(context).pushAndRemoveUntil<void>
+                                      (
+                                      
+                                      MaterialPageRoute<void>
+                                      (builder: (BuildContext context) => 
+                                      LoginPage()),
+                                      ModalRoute.withName('/Korisnik'),
+                                        // MaterialPageRoute(
+                                        //   builder: (context) => LoginPage(),
+                                        // ),
+                                      );
+                                    },child: const Text("Odjavi se"),
                                     ),
-                                    );
-                                    }, child: const Text("Odjavi se")),
-                                    
-                                    )
+                                    ),
                                   ],
                                 ),
 

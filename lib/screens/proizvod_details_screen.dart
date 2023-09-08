@@ -1,4 +1,5 @@
 
+import 'package:afk_android/models/cart.dart';
 import 'package:afk_android/models/search_result.dart';
 import 'package:afk_android/providers/proizvod_provider.dart';
 import 'package:afk_android/screens/proizvod_list_screen.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../models/korisnik.dart';
 import '../models/proizvod.dart';
+import '../providers/cart_provider.dart';
 
 class ProizvodDetailsScreen extends StatefulWidget {
   static const String routeName = "/product";
@@ -31,7 +33,11 @@ class _ProizvodDetailsScreen extends State<ProizvodDetailsScreen> {
 
   late ProizvodProvider _proizvodProvider;
   SearchResult<Proizvod>? _proizvodResult;
-  // bool isLoading=true;
+  
+  CartProvider? _cartProvider;
+  SearchResult<Cart>? _cartResult;
+
+
 
   @override
   void initState() {
@@ -47,7 +53,7 @@ class _ProizvodDetailsScreen extends State<ProizvodDetailsScreen> {
   };
 
     _proizvodProvider=context.read<ProizvodProvider>(); 
-
+    // _cartProvider=context.watch<CartProvider>();
   initForm();
   }
 
@@ -60,8 +66,13 @@ class _ProizvodDetailsScreen extends State<ProizvodDetailsScreen> {
 
   Future initForm()async{
     _proizvodResult=await _proizvodProvider.get();
-      
   }
+
+  Future<Proizvod> getProizvod()async
+  {
+    Proizvod pronadjeni=await _proizvodResult!.result.first;
+    return pronadjeni;
+  }   
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +129,7 @@ class _ProizvodDetailsScreen extends State<ProizvodDetailsScreen> {
             child: FormBuilderTextField (
                             decoration: const InputDecoration(labelText: "Cijena proizvoda"), 
 
+                readOnly: true,
                 name: 'cijena',
                 
             ),
@@ -125,6 +137,7 @@ class _ProizvodDetailsScreen extends State<ProizvodDetailsScreen> {
           Expanded(
             child: FormBuilderTextField (
                             decoration: const InputDecoration(labelText: "Kolicina proizvoda"), 
+                readOnly: true,
 
                 name: 'kolicina',
                 
@@ -140,7 +153,8 @@ class _ProizvodDetailsScreen extends State<ProizvodDetailsScreen> {
           }, child: const Text("Svi proizvodi")),
 
           ElevatedButton(onPressed: () async{
-            
+            Navigator.pushNamed(context, "${ProizvodDetailsScreen.routeName}/${widget.proizvod?.proizvodId}");
+            // _cartProvider!.addToCart(widget.proizvod!);
           }, child: const Text("Dodaj u korpu")),
 
           ],

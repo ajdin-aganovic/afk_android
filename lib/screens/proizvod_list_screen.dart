@@ -1,20 +1,18 @@
 import 'package:afk_android/models/search_result.dart';
-import 'package:afk_android/providers/platum_provider.dart';
 import 'package:afk_android/providers/proizvod_provider.dart';
-import 'package:afk_android/screens/plata_details_screen.dart';
 import 'package:afk_android/screens/proizvod_details_screen.dart';
+import 'package:afk_android/screens/proizvod_editable_screen.dart';
 import 'package:afk_android/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
 import '../models/korisnik.dart';
-import '../models/platum.dart';
 import '../models/proizvod.dart';
-import '../providers/transakcijski_racun_provider.dart';
 import '../utils/util.dart';
 
 class ProizvodListScreen extends StatefulWidget {
+  static const String routeName = "/product";
+
   Korisnik?korisnik;
   ProizvodListScreen({this.korisnik, super.key});
 
@@ -25,13 +23,9 @@ class ProizvodListScreen extends StatefulWidget {
 class _ProizvodListScreen extends State<ProizvodListScreen> {
   late ProizvodProvider _proizvodProvider;
   SearchResult<Proizvod>? result;
+  final TextEditingController _nazivController=TextEditingController();
+  final TextEditingController _sifraController=TextEditingController();
 
-  // late TransakcijskiRacunProvider _transakcijskiRacunProvider;
-
-   
-  // final TextEditingController _stateMachine=TextEditingController();
-  // final TextEditingController _minIznos=TextEditingController();
-  // final TextEditingController _maxIznos=TextEditingController();
 
   final ScrollController _horizontal = ScrollController(),
       _vertical = ScrollController();
@@ -65,12 +59,32 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
       child: 
       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-            const SizedBox(
-              height: 8,
+
+            Expanded(
+              child: 
+              TextField(
+                  decoration: 
+                  const InputDecoration(labelText: "Pretraga po nazivu"), 
+                  controller:_nazivController,
+                ),
             ),
+
+            Expanded(
+              child: 
+              TextField(
+                  decoration: 
+                  const InputDecoration(labelText: "Pretraga po šifri"), 
+                  controller:_sifraController,
+                ),
+            ),
+            
             ElevatedButton(onPressed:() async{
                 
             var data=await _proizvodProvider.get(
+              filter: {
+                'NazivProizvoda':_nazivController.text, //ako ne radi pretraga, ovo promijeniti
+                'SifraProizvoda':_sifraController.text
+              }
             );
         
             setState(() {
@@ -87,10 +101,6 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
 
 Widget _buildDataListView() {
   return 
-  // SizedBox(
-  //   height: 500,
-  //   width: 400,
-  //   child: 
     Scrollbar(
       controller: _vertical,
       thumbVisibility: true,
@@ -110,54 +120,81 @@ Widget _buildDataListView() {
             DataTable(
                 columns: const [
                     DataColumn(label: Expanded(
-                    child: Text("ID",
+                    child: Text("Proizvod ID",
                     style: TextStyle(fontStyle: FontStyle.italic),),
                     
                     ),
                     ),
 
                     DataColumn(label: Expanded(
-                    child: Text("Naziv pozicije",
+                    child: Text("Naziv proizvoda",
                     style: TextStyle(fontStyle: FontStyle.italic),),
                     ),
                     ),
 
                     DataColumn(label: Expanded(
-                    child: Text("Kategorija pozicije",
+                    child: Text("Šifra proizvoda",
                     style: TextStyle(fontStyle: FontStyle.italic),),
                     ),
                     ),
+
+                    DataColumn(label: Expanded(
+                    child: Text("Kategorija proizvoda",
+                    style: TextStyle(fontStyle: FontStyle.italic),),
+                    ),
+                    ),
+
+                    DataColumn(label: Expanded(
+                    child: Text("Cijena proizvoda",
+                    style: TextStyle(fontStyle: FontStyle.italic),),
+                    ),
+                    ),
+
+                    DataColumn(label: Expanded(
+                    child: Text("Količina",
+                    style: TextStyle(fontStyle: FontStyle.italic),),
+                    ),
+                    ),
+
                     ],
 
               rows: 
                 result?.result.map((Proizvod e) => DataRow(
                   onSelectChanged: (yxc)=>{
-                    if((Authorization.ulogaKorisnika=="Administrator"||Authorization.ulogaKorisnika=="Glavni trener")&&yxc==true)
+                    if((Authorization.ulogaKorisnika=="Administrator")&&yxc==true)
                       {
                         print('selected: ${e.proizvodId}'),
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context)=> ProizvodDetailsScreen(proizvod: e,)
+                          MaterialPageRoute(builder: (context)=> ProizvodEditableScreen(proizvod: e,)
                           )
                       ) 
                       }
                     else
                     {
-                      showDialog(context: context, builder: (BuildContext context) => 
-                        AlertDialog(
-                          title: Text("You have chosen ${e.proizvodId}"),
-                          content: Text("${e.naziv}/${e.kategorija}"),
-                          actions: [
-                            TextButton(onPressed: ()=>{
-                              Navigator.pop(context),
-                            }, child: const Text("OK"))
-                          ],
-                        )),
+                      // showDialog(context: context, builder: (BuildContext context) => 
+                      //   AlertDialog(
+                      //     title: Text("You have chosen ${e.proizvodId}"),
+                      //     content: Text("${e.naziv}/${e.kategorija}"),
+                      //     actions: [
+                      //       TextButton(onPressed: ()=>{
+                      //         Navigator.pop(context),
+                      //       }, child: const Text("OK"))
+                      //     ],
+                      //   )),
+                      print('selected: ${e.proizvodId}'),
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context)=> ProizvodDetailsScreen(proizvod: e,)
+                          )
+                      ) 
                     }
                   },
                   cells: [
                   DataCell(Text(e.proizvodId.toString()??"0")),
                   DataCell(Text(e.naziv??"---")),
+                  DataCell(Text(e.sifra??"---")),
                   DataCell(Text(e.kategorija??"---")),
+                  DataCell(Text(e.cijena.toString()??"---")),
+                  DataCell(Text(e.kolicina.toString()??"---")),
 
                   ]
                 )).toList()??[]
@@ -166,7 +203,6 @@ Widget _buildDataListView() {
           ),
         ),
       ),
-    // ),
   );
 }
 }

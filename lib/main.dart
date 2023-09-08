@@ -1,40 +1,17 @@
-// import 'dart:js_interop';
+
 import 'dart:convert';
 import 'dart:math';
-// import 'dart:convert';
-import 'package:afk_android/providers/base_provider.dart';
-import 'package:afk_android/providers/bolest_provider.dart';
 import 'package:afk_android/providers/clanarina_provider.dart';
-import 'package:afk_android/providers/korisnik_bolest_provider.dart';
-import 'package:afk_android/providers/korisnik_pozicija_provider.dart';
-import 'package:afk_android/providers/korisnik_transakcijski_racun_provider.dart';
-import 'package:afk_android/providers/korisnik_uloga_provider.dart';
-import 'package:afk_android/providers/pozicija_provider.dart';
 import 'package:afk_android/providers/proizvod_provider.dart';
-import 'package:afk_android/providers/stadion_provider.dart';
-import 'package:afk_android/providers/statistika_provider.dart';
-import 'package:afk_android/providers/termin_provider.dart';
 import 'package:afk_android/providers/transakcijski_racun_provider.dart';
-import 'package:afk_android/providers/trening_provider.dart';
-import 'package:afk_android/providers/trening_stadion_provider.dart';
-// import 'package:paypal_sdk/paypal_sdk.dart';
-// import 'package:afk_android/screens/bolest_list_screen.dart';
-import 'package:afk_android/screens/home_screen.dart';
-// import 'package:afk_android/screens/korisnici_list_screen.dart';
+import 'package:afk_android/screens/korisnik_details_screen.dart';
 import 'package:afk_android/screens/reset_password_screen.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:http/http.dart' as http;
 import 'package:afk_android/providers/korisnik_provider.dart';
-import 'package:afk_android/providers/platum_provider.dart';
 import 'package:afk_android/providers/uloga_provider.dart';
-import 'package:afk_android/screens/plata_list_screen.dart';
-import 'package:afk_android/screens/korisnik_details_screen.dart';
 import 'package:afk_android/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:afk_android/widgets/makePayment.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 // import 'package:afk_android/api/client.dart';
 
 import 'models/korisnik.dart';
@@ -45,22 +22,10 @@ void main() async {
   
   runApp(MultiProvider(providers:
   [
-    ChangeNotifierProvider(create: (_) => PlatumProvider()),
     ChangeNotifierProvider(create: (_) => KorisnikProvider()),
     ChangeNotifierProvider(create: (_) => UlogaProvider()),
-    ChangeNotifierProvider(create: (_) => BolestProvider()),
     ChangeNotifierProvider(create: (_) => ClanarinaProvider()),
-    ChangeNotifierProvider(create: (_) => PozicijaProvider()),
-    ChangeNotifierProvider(create: (_) => StadionProvider()),
-    ChangeNotifierProvider(create: (_) => StatistikaProvider()),
-    ChangeNotifierProvider(create: (_) => TerminProvider()),
     ChangeNotifierProvider(create: (_) => TransakcijskiRacunProvider()),
-    ChangeNotifierProvider(create: (_) => TreningProvider()),
-    ChangeNotifierProvider(create: (_) => KorisnikBolestProvider()),
-    ChangeNotifierProvider(create: (_) => KorisnikPozicijaProvider()),
-    ChangeNotifierProvider(create: (_) => KorisnikTransakcijskiRacunProvider()),
-    ChangeNotifierProvider(create: (_) => KorisnikUlogaProvider()),
-    ChangeNotifierProvider(create: (_) => TreningStadionProvider()),
     ChangeNotifierProvider(create: (_) => ProizvodProvider()),
 
   ],
@@ -88,7 +53,6 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _usernamecontroller=TextEditingController();
   final TextEditingController _passwordcontroller=TextEditingController();
 
-  late PlatumProvider _plataProvider;
   late KorisnikProvider _korisniciProvider;
 
   Korisnik? loggovaniUser;
@@ -96,7 +60,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      
-    _plataProvider=context.read<PlatumProvider>();
     _korisniciProvider=context.read<KorisnikProvider>();
 
     String encodeBase64(String data) {
@@ -105,18 +68,16 @@ class LoginPage extends StatelessWidget {
         List<int> bytes = utf8.encode(data); // Convert string to bytes
         return base64.encode(bytes); // Encode bytes as Base64
       }
-      else
-      return "error";
+      else {
+        return "error";
+      }
     }
 
     String decodeBase64(String lozinkaGore)
     {
-      if(lozinkaGore!=null)
-      {
-        List<int> bytes=base64.decode(lozinkaGore);
+      List<int> bytes=base64.decode(lozinkaGore);
 
-      return utf8.decode(bytes);
-      }
+    return utf8.decode(bytes);
       return "error";
     }
 
@@ -128,10 +89,7 @@ class LoginPage extends StatelessWidget {
               child: 
               Container(
                 constraints: const BoxConstraints(maxHeight: 400,maxWidth: 400),
-                // child: Card(
                   child: Column(children: [
-                    //Image.network("https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/285px-Manchester_United_FC_crest.svg.png", height: 100,width: 100,),
-                    // Image.asset("assets/images/manchesterunited.png", height: 100,width: 100,),
                     const SizedBox(height: 20,),
                     const Text('Aplikacija Fudbalskog Kluba',
                      style: TextStyle(fontSize: 30),),
@@ -153,13 +111,8 @@ class LoginPage extends StatelessWidget {
                       ),
                       controller: _passwordcontroller, 
                     ),
-                    // const SizedBox(height: 20,),
-                    // ElevatedButton(onPressed: () async{
-                      
-                    //   }),
                     const SizedBox(height: 20,),
                     ElevatedButton(onPressed: 
-                    // _performLogin
                     () async {
                       var username=_usernamecontroller.text;
                       var password=_passwordcontroller.text;
@@ -196,30 +149,13 @@ class LoginPage extends StatelessWidget {
                           var foundFirst=data.result.first;
                           var uloga=foundFirst.uloga;
                           Authorization.ulogaKorisnika=uloga;
-
-                          // var lozinkaHashIzUsera=foundFirst.lozinkaHash.toString();
-                          // var lozinkaSaltIzUsera=foundFirst.lozinkaSalt.toString();
-                          // var kodiranaLozinka1=encodeBase64(lozinkaHashIzUsera);
-                          // var kodiraniSaltLozinka1=encodeBase64(lozinkaSaltIzUsera);
-                          // var dekodiranaLozinka1=decodeBase64(lozinkaHashIzUsera);
-                          // var dekodiraniSalt1=decodeBase64(lozinkaSaltIzUsera);
-                          // var kodiranaLozinka2=encodeBase64(password);
-                          // var dekodiranaLozinka2=decodeBase64(kodiranaLozinka2);
-
-                          // print("login proceed u:(${username}) p:(${password}) \npassword dekodirani: ${lozinkaIzUsera}");
                           
                           showDialog(context: context, builder: (BuildContext context) => 
                             AlertDialog(
                               // title: Text("Dobro došli (${username}) (${password})"),
-                              title: Text("Dobro došli (${username})"),
+                              title: Text("Dobro došli ($username)"),
 
                               content: Text(
-                              //   "password enkodirani1: ${lozinkaHashIzUsera}"+
-                              // "\npassword salt enkodirani1: ${lozinkaSaltIzUsera}"+
-                              // "\npassword dekodirani1:${dekodiranaLozinka1}"+
-                              // "\npassword salt dekodirani1:${dekodiraniSalt1}"+
-                              // "\npassword enkodirani2: ${kodiranaLozinka2}"+
-                              // "\npassword dekodirani2:${dekodiranaLozinka2}"+
                               "\nuloga usera: ${Authorization.ulogaKorisnika}"
                               ),
                               actions: [
@@ -232,12 +168,6 @@ class LoginPage extends StatelessWidget {
                                   }, child: const Text("OK"))
                               ],
                             ));
-
-                          // Navigator.of(context).push(
-                          // MaterialPageRoute(
-                          //   builder: (context) => KorisnikDetailsScreen(korisnik: foundFirst,),
-                          //   ),
-                          // );
                           } 
                           catch (e) {
                             if(e is StateError)
@@ -279,7 +209,7 @@ class LoginPage extends StatelessWidget {
                       
                         Navigator.of(context).push(
                         MaterialPageRoute(
-                        builder: (context) => ContactPage(),
+                        builder: (context) => const ContactPage(),
                             ),
                             );
                           }, 
@@ -304,88 +234,7 @@ class LoginPage extends StatelessWidget {
             ),
         );
   }
-
-  // Future<void> _performLogin() async {
-  //   final username = _usernamecontroller.text;
-  //   final password = _passwordcontroller.text;
-
-  //   // Make an HTTP request to your API to validate the credentials
-  //   final response = await http.post(
-  //     "https://localhost:7181/login" as Uri,
-  //     body: {'username': username, 'password': password},
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     // Successful login
-  //     // Navigate to the next screen
-  //   } else {
-  //     // Failed login
-  //     showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           title: Text('Login Failed'),
-  //           content: Text('Invalid username or password.'),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: Text('OK'),
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     );
-  //   }
-  
-// Future<Korisnik?> authenticateUser(String username, String password) async {
-//   final url = Uri.parse('https://localhost:7181/Korisnik');
-
-//   final response = await http.post(
-//     url,
-//     headers: {'Content-Type': 'application/json'},
-//     body: jsonEncode({'username': username, 'password': password}),
-//   );
-
-//   if (response.statusCode == 200) {
-//     final jsonResponse = jsonDecode(response.body);
-//     return Korisnik.fromJson(jsonResponse);
-//   } else {
-//     return null;
-//   }
-// }
 }
-
-
-
-// Login endpoint
-// Future<String> login(String username, String password) async {
-//   // Perform authentication and validate credentials
-//   bool isValidCredentials = await authenticate(username, password);
-  
-//   if (isValidCredentials) {
-//     // Generate a JWT token
-//     final token = generateJwtToken(username);
-//     return token;
-//   } else {
-//     throw Exception('Invalid credentials');
-//   }
-// }
-
-// // Generate JWT token
-// String generateJwtToken(String username) {
-//   // Generate token with desired payload (e.g., username and expiration time)
-//   final payload = {
-//     'username': username,
-//     'exp': DateTime.now().add(Duration(hours: 1)).millisecondsSinceEpoch ~/ 1000,
-//   };
-
-//   // Sign the token using a secret key
-//   final token = JwtDecoder.encode(payload, 'your_secret_key');
-//   return token;
-// }
-
 
 
 

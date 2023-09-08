@@ -1,31 +1,20 @@
 import 'package:afk_android/models/korisnik.dart';
 import 'package:afk_android/models/search_result.dart';
-import 'package:afk_android/providers/korisnik_uloga_provider.dart';
-import 'package:afk_android/providers/platum_provider.dart';
-import 'package:afk_android/screens/bolest_list_screen.dart';
-import 'package:afk_android/screens/korisnici_editable_screen.dart';
-import 'package:afk_android/screens/korisnici_list_screen.dart';
-import 'package:afk_android/screens/korisnik_insert_screen.dart';
+import 'package:afk_android/screens/proizvod_list_screen.dart';
 import 'package:afk_android/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
 import 'package:afk_android/providers/korisnik_provider.dart';
 import 'package:afk_android/providers/uloga_provider.dart';
-import 'package:afk_android/screens/korisnik_details_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../models/platum.dart';
-import '../models/korisnik_uloga.dart';
 import '../models/uloga.dart';
-import '../utils/util.dart';
 import 'home_screen.dart';
 
 class KorisnikDetailsScreen extends StatefulWidget {
 
   Korisnik? korisnik;
-  KorisnikUloga? korisnikUloga;
   String? usernameKorisnika;
   Uloga? uloga;
   int? korisnikId;
@@ -46,11 +35,6 @@ class _KorisnikDetailsScreen extends State<KorisnikDetailsScreen> {
   
 
   SearchResult<Korisnik>? _korisnikResult;
-
-   late KorisnikUlogaProvider _korisnikUlogaProvider;
-  
-
-  SearchResult<KorisnikUloga>? _korisnikUlogaResult;
 
   late UlogaProvider _ulogaProvider;
   
@@ -192,33 +176,6 @@ class _KorisnikDetailsScreen extends State<KorisnikDetailsScreen> {
                 
             ),
           ),
-          Expanded(
-            child: FormBuilderTextField (
-                            decoration: const InputDecoration(labelText: "Pod ugovorom"), 
-                readOnly: true,
-
-                name: 'podUgovorom',
-                
-            ),
-          ),
-          Expanded(
-            child: FormBuilderTextField (
-                            decoration: const InputDecoration(labelText: "Pod ugovorm od"), 
-                readOnly: true,
-
-                name: 'podUgovoromOd',
-                
-            ),
-          ),
-          Expanded(
-            child: FormBuilderTextField (
-                            decoration: const InputDecoration(labelText: "Pod ugovorom do"), 
-                readOnly: true,
-
-                name: 'podUgovoromDo',
-                
-            ),
-          ),
 
           Expanded(
             child: FormBuilderTextField (
@@ -233,29 +190,28 @@ class _KorisnikDetailsScreen extends State<KorisnikDetailsScreen> {
           
             Row(
               children: [
-                Column(
-                  children: [
-                    ElevatedButton(onPressed: () async{
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            
-                            builder: (context) => KorisniciEditableScreen(),
-                          ),
-                        );
-                      }, child: Text("Svi korisnici")),
-                  ],
-                ),
-
                   Column(
                     children: [
                       ElevatedButton(onPressed: () async{
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             
-                            builder: (context) => HomePage(),
+                            builder: (context) => const HomePage(),
                           ),
                         );
-                      }, child: Text("Home page")),
+                      }, child: const Text("Home page")),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      ElevatedButton(onPressed: () async{
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            
+                            builder: (context) => ProizvodListScreen(),
+                          ),
+                        );
+                      }, child: const Text("Katalog")),
                     ],
                   ),
               ],
@@ -273,8 +229,4 @@ class _KorisnikDetailsScreen extends State<KorisnikDetailsScreen> {
     
   }
 
-FormBuilder zaboravljenPassword() {
-  return FormBuilder(child: 
-  Text("Dob"));
-  }
 }

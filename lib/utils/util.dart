@@ -2,13 +2,10 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:afk_android/models/search_result.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 
 import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
-import 'package:http/http.dart';
 
 import '../models/korisnik.dart';
 import '../providers/korisnik_provider.dart';
@@ -37,7 +34,7 @@ class Authorization{
   dst.setAll(0, src);
   dst.setAll(src.length, bytes);
 
-  final algorithm = sha1;
+  const algorithm = sha1;
   final inArray = algorithm.convert(dst).bytes;
   return base64.encode(inArray);
 }

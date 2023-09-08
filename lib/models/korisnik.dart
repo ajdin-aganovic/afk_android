@@ -28,27 +28,3 @@ class Korisnik{
   factory Korisnik.fromJson(Map<String,dynamic>json)=>_$KorisnikFromJson(json);
   Map<String,dynamic>toJson()=>_$KorisnikToJson(this);
 }
-
-//  public int KorisnikId { get; set; }
-
-//         public string? Ime { get; set; }
-
-//         public string? Prezime { get; set; }
-
-//         public string? Email { get; set; }
-
-//         public string? Lozinka { get; set; }
-
-//         public int UlogaId { get; set; }
-
-//         public string? StrucnaSprema { get; set; }
-
-//         public DateTime? DatumRodjenja { get; set; }
-
-//         public int? BolestId { get; set; }
-//         public int TipKorisnikaId { get; set; }
-//         public int? TransakcijskiRacunId { get; set; }
-//         public bool? PodUgovorom { get; set; }
-//         public DateTime? PodUgovoromOd { get; set; }
-//         public DateTime? PodUgovoromDo { get; set; }
-//         public string? KorisnickoIme { get; set; }

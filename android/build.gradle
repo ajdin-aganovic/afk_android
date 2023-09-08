@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.8.20' //pokušati sa 1.9.0
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.3.0' //bilo 7.3.0
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -26,6 +26,9 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
+// tasks.register("clean", Delete) {
+//     delete rootProject.buildDir
+// }
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

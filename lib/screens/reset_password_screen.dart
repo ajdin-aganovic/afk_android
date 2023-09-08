@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
 import '../main.dart';
 
@@ -64,7 +63,7 @@ class _ContactPageState extends State<ContactPage> {
                   labelText: 'Name',
                   hintText: 'Name'),
               ),
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
               TextFormField(
                 controller: usernameController,
                 decoration: const InputDecoration(
@@ -72,7 +71,7 @@ class _ContactPageState extends State<ContactPage> {
                   labelText: 'Username',
                   hintText: 'Username'),
               ),
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
               TextFormField(
                 controller: messageController,
                 decoration: const InputDecoration(
@@ -80,7 +79,7 @@ class _ContactPageState extends State<ContactPage> {
                   labelText: 'Message',
                   hintText: 'Message'),
               ),
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
               TextFormField(
                 controller: subjectController,
                 decoration: const InputDecoration(
@@ -88,7 +87,7 @@ class _ContactPageState extends State<ContactPage> {
                   labelText: 'Subject',
                   hintText: 'Subject'),
               ),
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
               TextFormField(
                 controller: emailController,
                 decoration: const InputDecoration(
@@ -96,13 +95,13 @@ class _ContactPageState extends State<ContactPage> {
                   labelText: 'Email',
                   hintText: 'Email'),
               ),
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
               ElevatedButton(onPressed: (){
                 sendEmail();
                 Navigator.pop(context);
-              }, child: Text("Pošalji", 
+              }, child: const Text("Pošalji", 
               style: TextStyle(fontSize: 20),)),
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
               ElevatedButton(onPressed: (){
                 Navigator.of(context).push(
                 MaterialPageRoute(
@@ -111,7 +110,7 @@ class _ContactPageState extends State<ContactPage> {
 
                 ),
               );
-              }, child: Text("Nazad na login", 
+              }, child: const Text("Nazad na login", 
               style: TextStyle(fontSize: 20),))
             ]),
           ),

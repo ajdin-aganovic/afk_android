@@ -1,61 +1,19 @@
-import 'dart:math';
-import 'dart:convert';
-import 'package:afk_android/providers/bolest_provider.dart';
-import 'package:afk_android/providers/clanarina_provider.dart';
-import 'package:afk_android/providers/pozicija_provider.dart';
-import 'package:afk_android/providers/stadion_provider.dart';
-import 'package:afk_android/providers/statistika_provider.dart';
-import 'package:afk_android/providers/termin_provider.dart';
-import 'package:afk_android/providers/transakcijski_racun_provider.dart';
-import 'package:afk_android/providers/trening_provider.dart';
-import 'package:afk_android/screens/bolest_details_screen.dart';
-import 'package:afk_android/screens/bolest_list_screen.dart';
-import 'package:afk_android/screens/clanarina_details_screen.dart';
-import 'package:afk_android/screens/clanarina_list_screen.dart';
-import 'package:afk_android/screens/igrac_opcije_screen.dart';
-import 'package:afk_android/screens/korisnici_list_screen.dart';
-import 'package:afk_android/screens/korisnik_insert_screen.dart';
-import 'package:afk_android/screens/medicinsko_opcije_screen.dart';
-import 'package:afk_android/screens/plata_details_screen.dart';
-import 'package:afk_android/screens/pozicija_details_screen.dart';
-import 'package:afk_android/screens/pozicija_list_screen.dart';
-import 'package:afk_android/screens/proizvod_list_screen.dart';
-import 'package:afk_android/screens/reset_password_screen.dart';
-import 'package:afk_android/screens/stadion_details_screen.dart';
-import 'package:afk_android/screens/stadion_screen.dart';
-import 'package:afk_android/screens/statistika_details_screen.dart';
-import 'package:afk_android/screens/statistika_list_screen.dart';
-import 'package:afk_android/screens/termin_details_screen.dart';
-import 'package:afk_android/screens/termin_list_screen.dart';
-import 'package:afk_android/screens/transakcijski_racun_details.dart';
-import 'package:afk_android/screens/transakcijski_racun_list_screen.dart';
-import 'package:afk_android/screens/trening_details_screen.dart';
-import 'package:afk_android/screens/trening_list_screen.dart';
-import 'package:afk_android/screens/uloga_details_screen.dart';
-import 'package:afk_android/screens/uloga_list_screen.dart';
-import 'package:afk_android/screens/uprava_opcije_screen.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
-import 'package:http/http.dart' as http;
-import 'package:afk_android/providers/korisnik_provider.dart';
-import 'package:afk_android/providers/platum_provider.dart';
-import 'package:afk_android/providers/uloga_provider.dart';
-import 'package:afk_android/screens/plata_list_screen.dart';
+import 'package:afk_android/main.dart';
 import 'package:afk_android/screens/korisnik_details_screen.dart';
+import 'package:afk_android/screens/proizvod_list_screen.dart';
+
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:afk_android/providers/korisnik_provider.dart';
 import 'package:afk_android/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:afk_android/widgets/makePayment.dart';
-// import 'package:afk_android/api/client.dart';
 
 import '../models/korisnik.dart';
 import '../models/search_result.dart';
-import 'administracija_opcije_screen.dart';
 
 class HomePage extends StatefulWidget {
   final Korisnik? loggovaniUser;
-  HomePage({this.loggovaniUser, super.key});
+  const HomePage({this.loggovaniUser, super.key});
 
   @override
   State<HomePage> createState() => _HomePage();
@@ -67,7 +25,7 @@ class _HomePage extends State<HomePage>{
    final ScrollController _horizontal = ScrollController(),
       _vertical = ScrollController();
   
-Map<String,dynamic>_initialValue={};
+final Map<String,dynamic>_initialValue={};
 
   late KorisnikProvider _korisnikProvider;
   
@@ -83,28 +41,21 @@ Map<String,dynamic>_initialValue={};
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
 
   }
 
     Future initForm()async{
-      // _korisnikResult=await _korisnikProvider.get();
-      _korisnikResult=await _korisnikProvider.get(filter:{
+      _korisnikResult=await _korisnikProvider.get(filter: 
+      {
         'KorisnickoIme':Authorization.username
       });
 
-      // print(_korisnikResult);
   }
 
 
   @override
   Widget build(BuildContext context) {
-    // // var izabrani=_korisnikResult?.result.where((element) => widget.korisnik!.korisnikId==element.korisnikId);
-    var izabrani=_korisnikResult?.result.first;
-    // var izabrani=_korisnikProvider.get();
-    // _korisnikResult=_korisnikProvider.get() as SearchResult<Korisnik>?;
-    // TODO: implement build
    return 
     SizedBox(
       height: 500,
@@ -127,20 +78,13 @@ Map<String,dynamic>_initialValue={};
                       child: 
                         Column(
                           children: [
-                              SizedBox(height: 12,),
-                              Text('Aplikacija Fudbalskog Kluba',
+                              const SizedBox(height: 12,),
+                              const Text('Aplikacija Fudbalskog Kluba',
                               style: TextStyle(fontSize: 30),), 
-                              SizedBox(height: 12,),
-                              // Text('Dobrodošli ${widget.loggovaniUser?.korisnickoIme??"nazad"}',
+                              const SizedBox(height: 12,),
                               Text('Dobrodošli ${Authorization.username}',
-
-                              
-                              // Text('Dobrodošli ${widget.korisnik?.korisnickoIme}',
-                              style: TextStyle(fontSize: 30),),
-                              SizedBox(height: 24,),
-                                          
-      
-
+                              style: const TextStyle(fontSize: 30),),
+                              const SizedBox(height: 24,),
                               
                             Row(
                               children: [
@@ -150,29 +94,13 @@ Map<String,dynamic>_initialValue={};
                                     SizedBox(height: 80, width: 200, child: 
                                     
                                     ElevatedButton(onPressed: (){
-                                    if(Authorization.ulogaKorisnika=="Administrator")
-                                    // if(1==1)
-                                    { 
+                                    
                                     Navigator.of(context).push(
                                     MaterialPageRoute(
-                                    builder: (context) => AdminScreen()
+                                    builder: (context) => LoginPage()
                                     ),
                                     );
-                                    }
-                                      else
-                                      {
-                                         showDialog(context: context, builder: (BuildContext context) => 
-                                    AlertDialog(
-                                      title: const Text("You are not Admin."),
-                                      content: Text("Try again"),
-                                      actions: [
-                                        TextButton(onPressed: ()=>{
-                                          Navigator.pop(context),
-                                        }, child: const Text("OK"))
-                                      ],
-                                    ));
-                                      }
-                                    }, child: Text("Go to Admin dio")),
+                                    }, child: const Text("Odjavi se")),
                                     
                                     )
                                   ],
@@ -183,106 +111,21 @@ Map<String,dynamic>_initialValue={};
                                   children: [
                                     SizedBox(height: 80, width: 200, child: 
                                     ElevatedButton(onPressed: (){
-                                    if(Authorization.ulogaKorisnika=="Glavni trener"||Authorization.ulogaKorisnika=="Pomoćni trener")
-                                    // if(1==1)
-                           { 
+                                    
                                     Navigator.of(context).push(
                                     MaterialPageRoute(
-                                    builder: (context) => UpravaScreen()
+                                    builder: (context) => ProizvodListScreen()
                                     ),
                                     );
-                                    }
-                                      else
-                                      {
-                                         showDialog(context: context, builder: (BuildContext context) => 
-                                    AlertDialog(
-                                      title: const Text("You are not Uprava."),
-                                      content: Text("Try again"),
-                                      actions: [
-                                        TextButton(onPressed: ()=>{
-                                          Navigator.pop(context),
-                                        }, child: const Text("OK"))
-                                      ],
-                                    ));
-                                      }
-                                    }, child: Text("Go to Uprava dio")),
+                                    
+                                     
+                                    }, child: const Text("Go to Katalog")),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                            
-                            
-                                 Row(
-                                   children: [
-                                     Row(
-                                       children: [
-                                        SizedBox(height: 80, width: 200, child: 
-                                         ElevatedButton(onPressed: (){
-                            if(Authorization.ulogaKorisnika=="Doktor")
-                            // if(1==1)
-                           { 
-                            Navigator.of(context).push(
-                            MaterialPageRoute(
-                            builder: (context) => MedicinskoScreen()
-                            ),
-                            );
-                            }
-                              else
-                              {
-                                         showDialog(context: context, builder: (BuildContext context) => 
-                            AlertDialog(
-                              title: const Text("You are not Medicinsko osoblje."),
-                              content: Text("Try again"),
-                              actions: [
-                                TextButton(onPressed: ()=>{
-                                          Navigator.pop(context),
-                                }, child: const Text("OK"))
-                              ],
-                            ));
-                              }
-                            }, child: Text("Go to Medicinski dio")),
-                                        ),
-                                       ],
-                                     ),
 
-
-                           
-                          Row(
-                            children: [
-                              SizedBox(height: 80, width: 200, child: 
-                              ElevatedButton(onPressed: (){
-                                if(Authorization.ulogaKorisnika=="Igrač")
-                                // if(1==1)
-                               { 
-                                Navigator.of(context).push(
-                                MaterialPageRoute(
-                                builder: (context) => IgracScreen()
-                                ),
-                                );
-                                }
-                                  else
-                                  {
-                                         showDialog(context: context, builder: (BuildContext context) => 
-                                          AlertDialog(
-                                            title: const Text("You are not Igrač."),
-                                            content: Text("Try again"),
-                                            actions: [
-                                              TextButton(onPressed: ()=>{
-                                                Navigator.pop(context),
-                                              }, child: const Text("OK"))
-                                            ],
-                                          ));
-                                  }
-                                }, child: Text("Go to Igrač dio")),
-                              ),
-                            ],
-                          ),
-                                   ],
-                                 ),
-
-                            
-                            
                             Row(
                               children: [
                                 SizedBox(height: 80, width: 200, child: 
@@ -300,7 +143,8 @@ Map<String,dynamic>_initialValue={};
 
                                     var pronadjeniKorisnik=_korisnikResult!.result.first;
                                   
-                                    Navigator.of(context).push(
+                                    print("${pronadjeniKorisnik.korisnickoIme}");
+                                     Navigator.of(context).push(
                                     MaterialPageRoute(
                                     builder: (context) => KorisnikDetailsScreen(korisnik: pronadjeniKorisnik,)
                                     ),
@@ -310,7 +154,7 @@ Map<String,dynamic>_initialValue={};
                                     showDialog(context: context, builder: (BuildContext context) => 
                                         AlertDialog(
                                           title: const Text("Error"),
-                                          content: Text("${e.toString()}"),
+                                          content: Text(e.toString()),
                                           actions: [
                                             TextButton(onPressed: ()=>{
                                               Navigator.pop(context),
@@ -318,28 +162,10 @@ Map<String,dynamic>_initialValue={};
                                           ],
                                         ));
                                   }
-
-
-                                }, child: Text("Account details"),
-
-
+                                }, child: const Text("Account details"),
+                                ),
                                 ),
 
-                                
-                                ),
-
-                                SizedBox(height: 80, width: 200, child: 
-                                  ElevatedButton(onPressed: (){
-                                    
-                                    Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                    builder: (context) => ProizvodListScreen()
-                                    ),
-                                    );
-                                    
-                                      
-                                    }, child: Text("Go to Fan shop")),
-                                  ),
                                 
                               ],
                             )

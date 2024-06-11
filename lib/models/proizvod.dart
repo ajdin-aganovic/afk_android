@@ -11,10 +11,10 @@ String? sifra;
 String? kategorija;
 double? cijena;
 int? kolicina;
+String? stateMachine;
 
 
-
-  Proizvod(this.proizvodId, this.naziv, this.sifra, this.kategorija, this.cijena, this.kolicina);
+  Proizvod(this.proizvodId, this.naziv, this.sifra, this.kategorija, this.cijena, this.kolicina, this.stateMachine);
   // factory Korisnici.fromJson(Map<String,dynamic>json)=>_$KorisniciFromJson(json);
 
   factory Proizvod.fromJson(Map<String,dynamic>json)=>_$ProizvodFromJson(json);

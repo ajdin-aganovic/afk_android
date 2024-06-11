@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'dart:math';
+import 'package:afk_android/providers/cart_provider.dart';
 import 'package:afk_android/providers/clanarina_provider.dart';
 import 'package:afk_android/providers/proizvod_provider.dart';
 import 'package:afk_android/providers/transakcijski_racun_provider.dart';
@@ -27,6 +28,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => ClanarinaProvider()),
     ChangeNotifierProvider(create: (_) => TransakcijskiRacunProvider()),
     ChangeNotifierProvider(create: (_) => ProizvodProvider()),
+    ChangeNotifierProvider(create: (_) => CartProvider()),
 
   ],
   child: const MyMaterialApp(),));
@@ -39,7 +41,8 @@ class MyMaterialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AFK Material app',
-      theme: ThemeData(primarySwatch: Colors.red),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.red, primary: Colors.deepOrange) ,
+        useMaterial3: true,),
       home: LoginPage(),
 
     );
@@ -78,7 +81,6 @@ class LoginPage extends StatelessWidget {
       List<int> bytes=base64.decode(lozinkaGore);
 
     return utf8.decode(bytes);
-      return "error";
     }
 
     return 

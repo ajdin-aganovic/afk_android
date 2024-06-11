@@ -1,4 +1,5 @@
 import 'package:afk_android/models/search_result.dart';
+import 'package:afk_android/providers/cart_provider.dart';
 import 'package:afk_android/providers/proizvod_provider.dart';
 import 'package:afk_android/screens/proizvod_details_screen.dart';
 import 'package:afk_android/screens/proizvod_editable_screen.dart';
@@ -11,7 +12,7 @@ import '../models/proizvod.dart';
 import '../utils/util.dart';
 
 class ProizvodListScreen extends StatefulWidget {
-  static const String routeName = "/product";
+  static const String routeName = "/proizvod";
 
   Korisnik?korisnik;
   ProizvodListScreen({this.korisnik, super.key});
@@ -21,8 +22,9 @@ class ProizvodListScreen extends StatefulWidget {
 }
 
 class _ProizvodListScreen extends State<ProizvodListScreen> {
-  late ProizvodProvider _proizvodProvider;
-  SearchResult<Proizvod>? result;
+  ProizvodProvider? _proizvodProvider=null;
+  SearchResult<Proizvod>? result=null;
+  CartProvider? _korpaProvider=null;
   final TextEditingController _nazivController=TextEditingController();
   final TextEditingController _sifraController=TextEditingController();
 
@@ -31,26 +33,99 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
       _vertical = ScrollController();
 
 
-  @override void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    _proizvodProvider=context.read<ProizvodProvider>();
+  // @override void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  //   _proizvodProvider=context.read<ProizvodProvider>();
+  // }
+
+  Future loadData()async
+  {
+    var tmpData = await _proizvodProvider?.get();
+    setState(() {
+      result = tmpData!;
+    });
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _proizvodProvider = context.read<ProizvodProvider>();
+    _korpaProvider = context.read<CartProvider>();
+    print("called initState");
+    loadData();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
       title_widget: const Text("Lista proizvoda"),
-      child: Container(
-        child: Column(children: [
-          _buildSearch(),
-          _buildDataListView(),
-          
-        ],),
-
-        
-      )
+      child: 
+      SingleChildScrollView(child: 
+      Container(child: 
+      Column(children: [
+        _buildSearch(),
+        Container(
+          height: 500,
+          child: GridView(
+            gridDelegate: 
+            const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 4/3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 30),
+              scrollDirection: Axis.horizontal,
+              children: _buildProductCardList(),
+          ),
+        )
+      ],),),)
+      // Container(
+      //   child: Column(children: [
+      //     _buildSearch(),
+      //     _buildDataListView(),
+      //   ],),
+      // )
     );
+  }
+
+  List<Widget> _buildProductCardList() {
+    if (result?.result?.length == 0) {
+      return [Text("Loading...")];
+    }
+
+    List<Widget>? list = result?.result.map((x) =>
+     Container(
+      child: Column(
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+          ),
+          Text(x.naziv ?? ""),
+          Text(x.cijena.toString()??""),
+          Text(x.sifra??""),
+          Text(x.kolicina.toString()??""),
+          
+          IconButton(onPressed: () {
+            if(Authorization.ulogaKorisnika=="Administrator")
+            {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context)=> ProizvodEditableScreen(proizvod: x,)
+                )
+              );
+            }
+            else
+              {
+                _korpaProvider?.addToCart(x);
+                }
+          }, icon:const Icon(Icons.shopping_cart))
+        ],
+      ),
+    )).cast<Widget>().toList()??[];
+    
+    return list;
   }
 
   Widget _buildSearch(){
@@ -64,8 +139,10 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
               child: 
               TextField(
                   decoration: 
-                  const InputDecoration(labelText: "Pretraga po nazivu"), 
+                  
+                  const InputDecoration(labelText: "Pretraga po nazivu", prefixIcon: Icon(Icons.search)), 
                   controller:_nazivController,
+                  
                 ),
             ),
 
@@ -73,14 +150,14 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
               child: 
               TextField(
                   decoration: 
-                  const InputDecoration(labelText: "Pretraga po šifri"), 
+                  const InputDecoration(labelText: "Pretraga po šifri", ), 
                   controller:_sifraController,
                 ),
             ),
             
             ElevatedButton(onPressed:() async{
                 
-            var data=await _proizvodProvider.get(
+            var data=await _proizvodProvider!.get(
               filter: {
                 'NazivProizvoda':_nazivController.text, //ako ne radi pretraga, ovo promijeniti
                 'SifraProizvoda':_sifraController.text
@@ -156,6 +233,12 @@ Widget _buildDataListView() {
                     ),
                     ),
 
+                    DataColumn(label: Expanded(
+                    child: Text("Status proizvoda",
+                    style: TextStyle(fontStyle: FontStyle.italic),),
+                    ),
+                    ),
+
                     ],
 
               rows: 
@@ -195,6 +278,7 @@ Widget _buildDataListView() {
                   DataCell(Text(e.kategorija??"---")),
                   DataCell(Text(e.cijena.toString()??"---")),
                   DataCell(Text(e.kolicina.toString()??"---")),
+                  DataCell(Text(e.stateMachine??"---")),
 
                   ]
                 )).toList()??[]

@@ -42,6 +42,7 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
     'kategorija': widget.proizvod?.kategorija??"---", 
     'cijena': widget.proizvod?.cijena.toString()??"---", 
     'kolicina': widget.proizvod?.kolicina.toString()??"---", 
+    'stateMachine':widget.proizvod?.stateMachine??"draft",
   };
 
     _proizvodProvider=context.read<ProizvodProvider>(); 
@@ -142,71 +143,97 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                 
             ),
           ),
+
+          Expanded(
+            child: FormBuilderTextField (
+                            decoration: const InputDecoration(labelText: "Status proizvoda"), 
+
+                name: 'stateMachine',
+                
+            ),
+          ),
           
-          ElevatedButton(onPressed: () async{
-                _formKey.currentState?.saveAndValidate(focusOnInvalid: false);
-                print(_formKey.currentState?.value);
-                try{
-                  if(widget.proizvod==null) {
-                    await _proizvodProvider.insert(_formKey.currentState?.value);
-                  } else {
-                    await _proizvodProvider.update(widget.proizvod!.proizvodId!, _formKey.currentState?.value);
-                  }
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProizvodListScreen(),
-
-                    ),
-                            );
-                } on Exception catch (err) {
-                  showDialog(context: context, builder: (BuildContext context) => 
-                          AlertDialog(
-                            title: const Text("Error"),
-                            content: Text(err.toString()),
-                            actions: [
-                              TextButton(onPressed: ()=>{
-                                Navigator.pop(context),
-                              }, child: const Text("OK"))
-                            ],
-                          ));
-                }
-              }, child: const Text("Save")),
-              
+          Row(
+            children: [
               ElevatedButton(onPressed: () async{
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ProizvodListScreen(),
-                  ),
-                );
-              }, child: const Text("Svi proizvodi")),
-
-             ElevatedButton(onPressed: () async{
-          showDialog(context: context, builder: (BuildContext context) => 
-                    AlertDialog(
-                      title: const Text("Warning!!!"),
-                      content: Text("Are you sure you want to delete proizvod ${widget.proizvod!.proizvodId}?"),
-                      actions: [
-                        
-                        TextButton(onPressed: () async =>{
-                          
-                          await _proizvodProvider.delete(widget.proizvod!.proizvodId!),
-
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ProizvodListScreen(),
-                            ),
-                          )
-                      
-
-                        }, child: const Text("Yes")),
-                        TextButton(onPressed: ()=>{
-                          Navigator.pop(context),
-                        }, child: const Text("No")),
+                    _formKey.currentState?.saveAndValidate(focusOnInvalid: false);
+                    print(_formKey.currentState?.value);
+                    try{
+                      if(widget.proizvod==null) {
+                        await _proizvodProvider.insert(_formKey.currentState?.value);
+                      } else {
+                        await _proizvodProvider.update(widget.proizvod!.proizvodId!, _formKey.currentState?.value);
+                      }
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ProizvodListScreen(),
               
-                      ],
-                    ));
-                        
-                      }, child: const Text("Izbriši")),
+                        ),
+                                );
+                    } on Exception catch (err) {
+                      showDialog(context: context, builder: (BuildContext context) => 
+                              AlertDialog(
+                                title: const Text("Error"),
+                                content: Text(err.toString()),
+                                actions: [
+                                  TextButton(onPressed: ()=>{
+                                    Navigator.pop(context),
+                                  }, child: const Text("OK"))
+                                ],
+                              ));
+                    }
+                  }, child: const Text("Save")),
+                  
+                  ElevatedButton(onPressed: () async{
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProizvodListScreen(),
+                      ),
+                    );
+                  }, child: const Text("Svi proizvodi")),
+            ],
+          ),
+
+             Row(
+               children: [
+                 ElevatedButton(onPressed: () async{
+                           showDialog(context: context, builder: (BuildContext context) => 
+                        AlertDialog(
+                          title: const Text("Warning!!!"),
+                          content: Text("Are you sure you want to delete proizvod ${widget.proizvod!.proizvodId}?"),
+                          actions: [
+                            
+                            TextButton(onPressed: () async =>{
+                              
+                              await _proizvodProvider.delete(widget.proizvod!.proizvodId!),
+                 
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ProizvodListScreen(),
+                                ),
+                              )
+                          
+                 
+                            }, child: const Text("Yes")),
+                            TextButton(onPressed: ()=>{
+                              Navigator.pop(context),
+                            }, child: const Text("No")),
+                  
+                          ],
+                        ));
+                            
+                          }, child: const Text("Izbriši")),
+                 
+                          
+                      ElevatedButton(onPressed: () async{
+                        showDialog(context: context, builder: (BuildContext context) => 
+                        AlertDialog(
+                          title: const Text("Uspješna operacija!!!"),
+                          content: Text("Aktivirali/Zaključali ste proizvod ${widget.proizvod!.proizvodId}?"),
+                        ));
+                      }, child: const Text("Aktiviraj/Zaključaj proizvod")),
+               ],
+             ),
           ],
           ),
         ),

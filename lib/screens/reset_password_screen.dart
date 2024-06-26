@@ -17,6 +17,8 @@ class ContactPage extends StatefulWidget {
   final emailController = TextEditingController();
   final messageController = TextEditingController();
   final usernameController = TextEditingController();
+  final recipientController = TextEditingController();
+
 
   final ScrollController _vertical = ScrollController(), _horizontal = ScrollController();
 
@@ -35,8 +37,10 @@ class ContactPage extends StatefulWidget {
         "name":nameController.text,
         "user_name":usernameController.text,
         "message":messageController.text,
-        "subject":subjectController.text,
-        "user_email":emailController.text
+        "subject":"Zaboravljen password",
+        "user_email":emailController.text,
+        "recipient_email":recipientController.text,
+
       }
       })
     );
@@ -79,73 +83,89 @@ class _ContactPageState extends State<ContactPage> {
         //         controller: _horizontal,
         //         scrollDirection: Axis.horizontal,
               child: Form(
-                child: Column(children: [
-                  
-                  Expanded(
-                    child: TextFormField(
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                        // icon: const Icon(Icons.account_circle),
-                        labelText: 'Name',
-                        hintText: 'Name'),
-                    ),
+              child: Column(children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                      // icon: const Icon(Icons.account_circle),
+                      labelText: 'Ime i prezime',
+                      hintText: 'Vaše ime'),
                   ),
-                  const SizedBox(height: 25,),
-                  Expanded(
-                    child: TextFormField(
-                      controller: usernameController,
-                      decoration: const InputDecoration(
-                        // icon: const Icon(Icons.account_circle),
-                        labelText: 'Username',
-                        hintText: 'Username'),
-                    ),
+                ),
+                const SizedBox(height: 25,),
+                Expanded(
+                  child: TextFormField(
+                    controller: usernameController,
+                    decoration: const InputDecoration(
+                      // icon: const Icon(Icons.account_circle),
+                      labelText: 'Username',
+                      hintText: 'Vaš username'),
                   ),
-                  const SizedBox(height: 25,),
-                  Expanded(
-                    child: TextFormField(
-                      controller: messageController,
-                      decoration: const InputDecoration(
-                        // icon: const Icon(Icons.account_circle),
-                        labelText: 'Message',
-                        hintText: 'Message'),
-                    ),
+                ),
+                const SizedBox(height: 25,),
+                Expanded(
+                  child: TextFormField(
+                    controller: messageController,
+                    decoration: const InputDecoration(
+                      // icon: const Icon(Icons.account_circle),
+                      labelText: 'Message',
+                      hintText: 'Vaša poruka za ovaj mail'),
                   ),
-                  const SizedBox(height: 25,),
-                  Expanded(
-                    child: TextFormField(
-                      controller: subjectController,
-                      decoration: const InputDecoration(
-                        // icon: const Icon(Icons.account_circle),
-                        labelText: 'Subject',
-                        hintText: 'Subject'),
-                    ),
+                ),
+                const SizedBox(height: 25,),
+                Expanded(
+                  child: TextFormField(
+                    controller: subjectController,
+                    decoration: const InputDecoration(
+                      // icon: const Icon(Icons.account_circle),
+                      labelText: 'Zaboravljen password',
+                      enabled: false,),
                   ),
-                  const SizedBox(height: 25,),
-                  Expanded(
-                    child: TextFormField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        // icon: const Icon(Icons.account_circle),
-                        labelText: 'Email',
-                        hintText: 'Email'),
-                    ),
+                ),
+                const SizedBox(height: 25,),
+                Expanded(
+                  child: TextFormField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      // icon: const Icon(Icons.account_circle),
+                      labelText: 'Email',
+                      hintText: 'Vaš email'),
                   ),
+                ),
+                const SizedBox(height: 25,),
+                Expanded(
+                  child: TextFormField(
+                    controller: recipientController,
+                    decoration: const InputDecoration(
+                      // icon: const Icon(Icons.account_circle),
+                      labelText: 'Admins email',
+                      hintText: 'Email administratora'),
+                  ),
+                ),
+                const SizedBox(height: 25,),
+                Expanded(
+                  child: ElevatedButton(onPressed: (){
+                    sendEmail();
+                    nameController.text="";
+                    subjectController.text="";
+                    emailController.text="";
+                    messageController.text="";
+                    usernameController.text="";
+                    recipientController.text="";
+                    Navigator.pop(context);
+                  }, child: const Text("Pošalji", 
+                  style: TextStyle(fontSize: 20),)),
+                ),
                   const SizedBox(height: 25,),
                   Expanded(
                     child: ElevatedButton(onPressed: (){
-                      sendEmail();
-                      nameController.text="";
-                      subjectController.text="";
-                      emailController.text="";
-                      messageController.text="";
-                      usernameController.text="";
-                      Navigator.pop(context);
-                    }, child: const Text("Pošalji", 
-                    style: TextStyle(fontSize: 20),)),
-                  ),
-                  const SizedBox(height: 25,),
-                  Expanded(
-                    child: ElevatedButton(onPressed: (){
+                    nameController.text="";
+                    subjectController.text="";
+                    emailController.text="";
+                    messageController.text="";
+                    usernameController.text="";
+                    recipientController.text="";
                       Navigator.of(context).push(
                       MaterialPageRoute(
                         // builder: (context) => HomePage(naziv: username,),

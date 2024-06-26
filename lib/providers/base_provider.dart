@@ -137,6 +137,62 @@ abstract class BaseProvider<T> with ChangeNotifier {
         }
   }
 
+  Future<T> activatePlatum(int id)async{
+    var fullAPI="$_baseUrl$_endpoint/$id/activate";
+    var uriFullApi=Uri.parse(fullAPI);
+    var headerz=createHeaders();
+
+    var jsonRequest=jsonEncode(id);
+
+    var response=await http!.put(uriFullApi, headers: headerz, body: jsonRequest);
+    if(IsValidResponse(response))
+        {
+          var data=jsonDecode(response.body);
+          return fromJson(data);
+        }
+        else {
+          throw Exception("Unknown error.");
+        }
+  }
+
+  bool IsValidResponse(Response response){
+  if(response.statusCode<299) {
+    return true;
+  } else if(response.statusCode==401)
+    {
+      throw Exception("Unauthorized");
+    }
+    else if(response.statusCode==403)
+    {
+      throw Exception("You do not have permissions");
+    }
+    else
+    {
+      throw Exception("Something happened. Try again${response.statusCode}");
+      // throw Exception("Something happened. Try again" + response.toString());
+
+    }
+}
+
+  Future<T> hidePlatum(int id)async{
+    var fullAPI="$_baseUrl$_endpoint/$id/hide";
+    var uriFullApi=Uri.parse(fullAPI);
+    var headerz=createHeaders();
+
+    var jsonRequest=jsonEncode(id);
+
+    var response=await http!.put(uriFullApi, headers: headerz, body: jsonRequest);
+    if(IsValidResponse(response))
+        {
+          var data=jsonDecode(response.body);
+          return fromJson(data);
+        }
+        else {
+          throw Exception("Unknown error.");
+        }
+  }
+
+
   Map<String, String> createHeaders() {
     String? username = Authorization.username;
     String? password = Authorization.password;

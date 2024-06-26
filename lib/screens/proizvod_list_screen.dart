@@ -272,13 +272,13 @@ Widget _buildDataListView() {
                     }
                   },
                   cells: [
-                  DataCell(Text(e.proizvodId.toString()??"0")),
-                  DataCell(Text(e.naziv??"---")),
-                  DataCell(Text(e.sifra??"---")),
-                  DataCell(Text(e.kategorija??"---")),
-                  DataCell(Text(e.cijena.toString()??"---")),
-                  DataCell(Text(e.kolicina.toString()??"---")),
-                  DataCell(Text(e.stateMachine??"---")),
+                  DataCell(Text(e.proizvodId.toString()??"nema upisa")),
+                  DataCell(Text(e.naziv??"nema upisa")),
+                  DataCell(Text(e.sifra??"nema upisa")),
+                  DataCell(Text(e.kategorija??"nema upisa")),
+                  DataCell(Text(e.cijena.toString()??"nema upisa")),
+                  DataCell(Text(e.kolicina.toString()??"nema upisa")),
+                  DataCell(Text(e.stateMachine??"nema upisa")),
 
                   ]
                 )).toList()??[]

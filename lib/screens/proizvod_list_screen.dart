@@ -53,7 +53,7 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
     super.initState();
     _proizvodProvider = context.read<ProizvodProvider>();
     _korpaProvider = context.read<CartProvider>();
-    print("called initState");
+    print("pozvan initState");
     loadData();
   }
 
@@ -169,7 +169,7 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
               
             });
             }, 
-            child: const Text("Load data")),
+            child: const Text("Učitaj podatke")),
         ],
       ),
     
@@ -246,7 +246,7 @@ Widget _buildDataListView() {
                   onSelectChanged: (yxc)=>{
                     if((Authorization.ulogaKorisnika=="Administrator")&&yxc==true)
                       {
-                        print('selected: ${e.proizvodId}'),
+                        print('odabrani: ${e.proizvodId}'),
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context)=> ProizvodEditableScreen(proizvod: e,)
                           )
@@ -264,7 +264,7 @@ Widget _buildDataListView() {
                       //       }, child: const Text("OK"))
                       //     ],
                       //   )),
-                      print('selected: ${e.proizvodId}'),
+                      print('odabrani: ${e.proizvodId}'),
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context)=> ProizvodDetailsScreen(proizvod: e,)
                           )
@@ -272,13 +272,13 @@ Widget _buildDataListView() {
                     }
                   },
                   cells: [
-                  DataCell(Text(e.proizvodId.toString()??"0")),
-                  DataCell(Text(e.naziv??"---")),
-                  DataCell(Text(e.sifra??"---")),
-                  DataCell(Text(e.kategorija??"---")),
-                  DataCell(Text(e.cijena.toString()??"---")),
-                  DataCell(Text(e.kolicina.toString()??"---")),
-                  DataCell(Text(e.stateMachine??"---")),
+                  DataCell(Text(e.proizvodId.toString()??"nema upisa")),
+                  DataCell(Text(e.naziv??"nema upisa")),
+                  DataCell(Text(e.sifra??"nema upisa")),
+                  DataCell(Text(e.kategorija??"nema upisa")),
+                  DataCell(Text(e.cijena.toString()??"nema upisa")),
+                  DataCell(Text(e.kolicina.toString()??"nema upisa")),
+                  DataCell(Text(e.stateMachine??"nema upisa")),
 
                   ]
                 )).toList()??[]

@@ -62,6 +62,10 @@ class LoginPage extends StatelessWidget {
 
   Korisnik? loggovaniUser;
 
+    final ScrollController _horizontal = ScrollController(),
+      _vertical = ScrollController();
+
+
   @override
   Widget build(BuildContext context) {
      
@@ -74,7 +78,7 @@ class LoginPage extends StatelessWidget {
         return base64.encode(bytes); // Encode bytes as Base64
       }
       else {
-        return "error";
+        return "greška";
       }
     }
 
@@ -88,152 +92,171 @@ class LoginPage extends StatelessWidget {
     return 
         Scaffold(
           appBar: AppBar(
-            title: const Text("Login"),),
+            title: const Text("Prijava"),),
             body: Center(
-              child: 
-              Container(
-                constraints: const BoxConstraints(maxHeight: 400,maxWidth: 400),
-                  child: Column(children: [
-                    const SizedBox(height: 20,),
-                    const Text('Aplikacija Fudbalskog Kluba',
-                     style: TextStyle(fontSize: 30),),
+              child:
+              Scrollbar(
+                controller: _vertical,
+                thumbVisibility: true,
+                trackVisibility: true,
+                child: Scrollbar(
+                  controller: _horizontal,
+                  thumbVisibility: true,
+                  trackVisibility: true,
+                  notificationPredicate: (notif) => notif.depth == 1,
+                  child: SingleChildScrollView(
+                    controller: _vertical,
+          scrollDirection: Axis.vertical,
+                  child: SingleChildScrollView(
+                    controller: _horizontal,
+          scrollDirection: Axis.horizontal,
+                child: Container(
+                  constraints: const BoxConstraints(maxHeight: 500,maxWidth: 400),
+                    child: Column(children: [
                       const SizedBox(height: 20,),
-                    TextField(
-                      decoration: const InputDecoration(
-                        labelText: "Username",
-                        prefixIcon: Icon(Icons.email),
+                      const Text('Aplikacija Fudbalskog Kluba',
+                       style: TextStyle(fontSize: 30),),
+                        const SizedBox(height: 20,),
+                      TextField(
+                        decoration: const InputDecoration(
+                          labelText: "Korisničko ime",
+                          prefixIcon: Icon(Icons.email),
+                        ),
+                        controller: _usernamecontroller,
                       ),
-                      controller: _usernamecontroller,
-                    ),
-                    const SizedBox(height: 20,),
-                    TextField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        labelText: "Password",
-                        hintText: 'Enter your secure password',
-                        prefixIcon: Icon(Icons.password_outlined),
+                      const SizedBox(height: 20,),
+                      TextField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          labelText: "Lozinka",
+                          hintText: 'Unesite Vašu sigurnu lozinku',
+                          prefixIcon: Icon(Icons.password_outlined),
+                        ),
+                        controller: _passwordcontroller, 
                       ),
-                      controller: _passwordcontroller, 
-                    ),
-                    const SizedBox(height: 20,),
-                    ElevatedButton(onPressed: 
-                    () async {
-                      var username=_usernamecontroller.text;
-                      var password=_passwordcontroller.text;
-
-                      if(username.isEmpty||password.isEmpty)
-                      {
-                        showDialog(context: context, builder: (BuildContext context) => 
-                              AlertDialog(
-                                title: const Text("You must enter credentials."),
-                                content: Text(e.toString()),
-                                actions: [
-                                  TextButton(onPressed: ()=>{
-                                    Navigator.pop(context),
-                                    _usernamecontroller.text="",
-                                    _passwordcontroller.text=""
-                                  }, child: const Text("OK"))
-                                ],
-                              ));
-                      }
-                     
-                      else {
-                          
-                          Authorization.username=username;
-                          Authorization.password=password;
-                          
-                          try {
-                            var data=await _korisniciProvider.get(filter: {
-                            'KorisnickoIme':username,
-                            }
-                          );
-                          
-                         
-                          loggovaniUser=data.result.first;
-                          var foundFirst=data.result.first;
-                          var uloga=foundFirst.uloga;
-                          Authorization.ulogaKorisnika=uloga;
-                          
+                      const SizedBox(height: 20,),
+                      ElevatedButton(onPressed: 
+                      () async {
+                        var username=_usernamecontroller.text;
+                        var password=_passwordcontroller.text;
+                
+                        if(username.isEmpty||password.isEmpty)
+                        {
                           showDialog(context: context, builder: (BuildContext context) => 
-                            AlertDialog(
-                              // title: Text("Dobro došli (${username}) (${password})"),
-                              title: Text("Dobro došli ($username)"),
-
-                              content: Text(
-                              "\nuloga usera: ${Authorization.ulogaKorisnika}"
-                              ),
-                              actions: [
-                                TextButton(onPressed: ()=>{
-                                  Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => KorisnikDetailsScreen(korisnik: foundFirst,),
-                                    ),
-                                  )
-                                  }, child: const Text("OK"))
-                              ],
-                            ));
-                          } 
-                          catch (e) {
-                            if(e is StateError)
-                            {
-                              showDialog(context: context, builder: (BuildContext context) => 
+                                AlertDialog(
+                                  title: const Text("Morate unijeti validne kredencijale."),
+                                  content: Text(e.toString()),
+                                  actions: [
+                                    TextButton(onPressed: ()=>{
+                                      Navigator.pop(context),
+                                      _usernamecontroller.text="",
+                                      _passwordcontroller.text=""
+                                    }, child: const Text("OK"))
+                                  ],
+                                ));
+                        }
+                       
+                        else {
+                            
+                            Authorization.username=username;
+                            Authorization.password=password;
+                            
+                            try {
+                              var data=await _korisniciProvider.get(filter: {
+                              'KorisnickoIme':username,
+                              }
+                            );
+                            
+                           
+                            loggovaniUser=data.result.first;
+                            var foundFirst=data.result.first;
+                            var uloga=foundFirst.uloga;
+                            Authorization.ulogaKorisnika=uloga;
+                            
+                            showDialog(context: context, builder: (BuildContext context) => 
                               AlertDialog(
-                                title: const Text("No user found with these credentials."),
-                                content: Text(e.toString()),
+                                // title: Text("Dobro došli (${username}) (${password})"),
+                                title: Text("Dobro došli ($username)"),
+                
+                                content: Text(
+                                "\nuloga usera: ${Authorization.ulogaKorisnika}"
+                                ),
                                 actions: [
                                   TextButton(onPressed: ()=>{
-                                    Navigator.pop(context),
-                                    _usernamecontroller.text="",
-                                    _passwordcontroller.text=""
-                                  }, child: const Text("OK"))
+                                    Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => KorisnikDetailsScreen(korisnik: foundFirst,),
+                                      ),
+                                    )
+                                    }, child: const Text("OK"))
                                 ],
                               ));
-                            }
-                            else
-                            {
-                              showDialog(context: context, builder: (BuildContext context) => 
-                              AlertDialog(
-                                title: const Text("Error"),
-                                content: Text(e.toString()),
-                                actions: [
-                                  TextButton(onPressed: ()=>{
-                                    Navigator.pop(context),
-                                    _usernamecontroller.text="",
-                                    _passwordcontroller.text=""
-                                  }, child: const Text("OK"))
-                                ],
-                              ));
+                            } 
+                            catch (e) {
+                              if(e is StateError)
+                              {
+                                showDialog(context: context, builder: (BuildContext context) => 
+                                AlertDialog(
+                                  title: const Text("Nije pronađen korisnik sa ovim kredencijalima."),
+                                  content: Text(e.toString()),
+                                  actions: [
+                                    TextButton(onPressed: ()=>{
+                                      Navigator.pop(context),
+                                      _usernamecontroller.text="",
+                                      _passwordcontroller.text=""
+                                    }, child: const Text("OK"))
+                                  ],
+                                ));
+                              }
+                              else
+                              {
+                                showDialog(context: context, builder: (BuildContext context) => 
+                                AlertDialog(
+                                  title: const Text("Greška"),
+                                  content: Text(e.toString()),
+                                  actions: [
+                                    TextButton(onPressed: ()=>{
+                                      Navigator.pop(context),
+                                      _usernamecontroller.text="",
+                                      _passwordcontroller.text=""
+                                    }, child: const Text("OK"))
+                                  ],
+                                ));
+                              }
                             }
                           }
-                        }
-                    }, child: const Text("Login")),
-                    const SizedBox(height: 20,),
-
-                    ElevatedButton(onPressed: (){
-                      
-                        Navigator.of(context).push(
-                        MaterialPageRoute(
-                        builder: (context) => const ContactPage(),
-                            ),
-                            );
-                          }, 
-                    child: const Text(
-                      'Forgot Password',
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                     ),
-                     
-                    ),
-
-                    // const SizedBox(height: 20,),
-                    // ElevatedButton(onPressed: (){
-                    //   makePayment();
-                    // }, 
-                    // child: const Text('Go to Payment'),
-                    // )
-
-
-                  ]),
-                // ),
+                      }, child: const Text("Prijava")),
+                      const SizedBox(height: 20,),
+                
+                      ElevatedButton(onPressed: (){
+                        
+                          Navigator.of(context).push(
+                          MaterialPageRoute(
+                          builder: (context) => const ContactPage(),
+                              ),
+                              );
+                            }, 
+                      child: const Text(
+                        'Zaboravljena lozinka',
+                        style: TextStyle(color: Colors.black, fontSize: 15),
+                       ),
+                       
+                      ),
+                
+                      // const SizedBox(height: 20,),
+                      // ElevatedButton(onPressed: (){
+                      //   makePayment();
+                      // }, 
+                      // child: const Text('Go to Payment'),
+                      // )
+                
+                
+                    ]),
+                  // ),
+                ),
+              ),
+                ),
+                ),
               ),
             ),
         );

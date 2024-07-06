@@ -110,7 +110,7 @@ class _ProizvodDetailsScreen extends State<ProizvodDetailsScreen> {
           ),
           Expanded(
             child: FormBuilderTextField (
-                            decoration: const InputDecoration(labelText: "Sifra proizvoda"), 
+                            decoration: const InputDecoration(labelText: "Šifra proizvoda"), 
                 readOnly: true,
 
                 name: 'sifra',
@@ -136,7 +136,7 @@ class _ProizvodDetailsScreen extends State<ProizvodDetailsScreen> {
           ),
           Expanded(
             child: FormBuilderTextField (
-                            decoration: const InputDecoration(labelText: "Kolicina proizvoda"), 
+                            decoration: const InputDecoration(labelText: "Količina proizvoda"), 
                 readOnly: true,
 
                 name: 'kolicina',

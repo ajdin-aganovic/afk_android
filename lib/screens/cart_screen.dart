@@ -99,7 +99,7 @@ class _CartScreenState extends State<CartScreen> {
 
         showDialog(context: context, builder: (BuildContext context) => 
           AlertDialog(
-            title: const Text("Uspješna kupovina!!!"),
+            title: const Text("Završili ste sa kupovinom?"),
             content: Text("Konačna cijena (u KM): ${suma.toString()}"),
             actions: [
               

@@ -97,7 +97,7 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
           ),
           Expanded(
             child: FormBuilderTextField (
-                            decoration: const InputDecoration(labelText: "Sifra proizvoda"), 
+                            decoration: const InputDecoration(labelText: "Šifra proizvoda"), 
 
                 name: 'sifra',
                 
@@ -122,7 +122,7 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                               },
                               validator: (value) {
                                 if (value == null) {
-                                  return 'Please enter the Stručna sprema';
+                                  return 'Molimo Vas unesite kategoriju proizvoda';
                                 }
                                 return null;
                               },
@@ -138,7 +138,7 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
           ),
           Expanded(
             child: FormBuilderTextField (
-                            decoration: const InputDecoration(labelText: "Kolicina proizvoda"), 
+                            decoration: const InputDecoration(labelText: "Količina proizvoda"), 
 
                 name: 'kolicina',
                 
@@ -174,7 +174,7 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                     } on Exception catch (err) {
                       showDialog(context: context, builder: (BuildContext context) => 
                               AlertDialog(
-                                title: const Text("Error"),
+                                title: const Text("Greška"),
                                 content: Text(err.toString()),
                                 actions: [
                                   TextButton(onPressed: ()=>{
@@ -183,7 +183,7 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                                 ],
                               ));
                     }
-                  }, child: const Text("Save")),
+                  }, child: const Text("Snimi")),
                   
                   ElevatedButton(onPressed: () async{
                     Navigator.of(context).push(
@@ -200,8 +200,8 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                  ElevatedButton(onPressed: () async{
                            showDialog(context: context, builder: (BuildContext context) => 
                         AlertDialog(
-                          title: const Text("Warning!!!"),
-                          content: Text("Are you sure you want to delete proizvod ${widget.proizvod!.proizvodId}?"),
+                          title: const Text("Upozorenje!!!"),
+                          content: Text("Da li ste sigurni da želite izbrisati proizvod ${widget.proizvod!.proizvodId}?"),
                           actions: [
                             
                             TextButton(onPressed: () async =>{
@@ -215,10 +215,10 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                               )
                           
                  
-                            }, child: const Text("Yes")),
+                            }, child: const Text("Da")),
                             TextButton(onPressed: ()=>{
                               Navigator.pop(context),
-                            }, child: const Text("No")),
+                            }, child: const Text("Ne")),
                   
                           ],
                         ));
@@ -229,7 +229,7 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                       ElevatedButton(onPressed: () async{
                         showDialog(context: context, builder: (BuildContext context) => 
                         AlertDialog(
-                          title: const Text("Uspješna operacija!!!"),
+                          title: const Text("Uspješna akcija!"),
                           content: Text("Aktivirali/Zaključali ste proizvod ${widget.proizvod!.proizvodId}?"),
                           actions: [
                             TextButton(onPressed: () async =>{
@@ -243,8 +243,8 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                              await _proizvodProvider.hidePlatum(widget.proizvod!.proizvodId!),
                               showDialog(context: context, builder: (BuildContext context) => 
                                   AlertDialog(
-                                    title: const Text("Successful operation!"),
-                                    content: const Text("Proizvod je zatvoren"),
+                                    title: const Text("Uspješna operacija!"),
+                                    content: const Text("Proizvod je deaktiviran"),
                                     actions: [
                                       TextButton(onPressed: ()=>{
                                         Navigator.of(context).push(
@@ -260,8 +260,8 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                                await _proizvodProvider.activatePlatum(widget.proizvod!.proizvodId!),
                               showDialog(context: context, builder: (BuildContext context) => 
                                   AlertDialog(
-                                    title: const Text("Successful operation!"),
-                                    content: const Text("Proizvod je otvoren"),
+                                    title: const Text("Uspješna operacija!"),
+                                    content: const Text("Proizvod je aktiviran"),
                                     actions: [
                                       TextButton(onPressed: ()=>{
                                         Navigator.of(context).push(
@@ -276,8 +276,8 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                             {
                               showDialog(context: context, builder: (BuildContext context) => 
                                   AlertDialog(
-                                    title: const Text("Warning!"),
-                                    content: const Text("Unauthorized call of a function.\nYou do not have the permission!"),
+                                    title: const Text("Upozorenje!"),
+                                    content: const Text("Neautorizovani poziv funkcije.\nNemate dozvolu da pozovete ovu akciju!"),
                                     actions: [
                                       TextButton(onPressed: ()=>{
                                         Navigator.pop(context),
@@ -286,10 +286,10 @@ class _ProizvodEditableScreen extends State<ProizvodEditableScreen> {
                                   )),
                             }
 
-                            }, child: const Text("Yes")),
+                            }, child: const Text("Da")),
                               TextButton(onPressed: ()=>{
                               Navigator.pop(context),
-                            }, child: const Text("No")),
+                            }, child: const Text("Ne")),
                   
                           ],
                         ));

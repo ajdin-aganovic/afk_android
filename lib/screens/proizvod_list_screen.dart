@@ -53,7 +53,7 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
     super.initState();
     _proizvodProvider = context.read<ProizvodProvider>();
     _korpaProvider = context.read<CartProvider>();
-    print("called initState");
+    print("pozvan initState");
     loadData();
   }
 
@@ -169,7 +169,7 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
               
             });
             }, 
-            child: const Text("Load data")),
+            child: const Text("Učitaj podatke")),
         ],
       ),
     
@@ -246,7 +246,7 @@ Widget _buildDataListView() {
                   onSelectChanged: (yxc)=>{
                     if((Authorization.ulogaKorisnika=="Administrator")&&yxc==true)
                       {
-                        print('selected: ${e.proizvodId}'),
+                        print('odabrani: ${e.proizvodId}'),
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context)=> ProizvodEditableScreen(proizvod: e,)
                           )
@@ -264,7 +264,7 @@ Widget _buildDataListView() {
                       //       }, child: const Text("OK"))
                       //     ],
                       //   )),
-                      print('selected: ${e.proizvodId}'),
+                      print('odabrani: ${e.proizvodId}'),
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context)=> ProizvodDetailsScreen(proizvod: e,)
                           )

@@ -90,7 +90,7 @@ class _ContactPageState extends State<ContactPage> {
                     decoration: const InputDecoration(
                       // icon: const Icon(Icons.account_circle),
                       labelText: 'Ime i prezime',
-                      hintText: 'Vaše ime'),
+                      hintText: 'Vaše ime i prezime'),
                   ),
                 ),
                 const SizedBox(height: 25,),
@@ -99,8 +99,8 @@ class _ContactPageState extends State<ContactPage> {
                     controller: usernameController,
                     decoration: const InputDecoration(
                       // icon: const Icon(Icons.account_circle),
-                      labelText: 'Username',
-                      hintText: 'Vaš username'),
+                      labelText: 'Korisničko ime',
+                      hintText: 'Vaše korisničko ime'),
                   ),
                 ),
                 const SizedBox(height: 25,),
@@ -109,7 +109,7 @@ class _ContactPageState extends State<ContactPage> {
                     controller: messageController,
                     decoration: const InputDecoration(
                       // icon: const Icon(Icons.account_circle),
-                      labelText: 'Message',
+                      labelText: 'Poruka',
                       hintText: 'Vaša poruka za ovaj mail'),
                   ),
                 ),
@@ -139,7 +139,7 @@ class _ContactPageState extends State<ContactPage> {
                     controller: recipientController,
                     decoration: const InputDecoration(
                       // icon: const Icon(Icons.account_circle),
-                      labelText: 'Admins email',
+                      labelText: 'Kontakt email',
                       hintText: 'Email administratora'),
                   ),
                 ),

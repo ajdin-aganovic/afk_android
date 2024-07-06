@@ -63,7 +63,7 @@ final Map<String,dynamic>_initialValue={};
       child: 
       Scaffold(
         appBar: AppBar(
-          title: const Text("Home"),),
+          title: const Text("Početna"),),
           body: Center(
             child: 
             Scrollbar(
@@ -141,7 +141,7 @@ final Map<String,dynamic>_initialValue={};
                                       );
                                       
                                        
-                                      }, child: const Text("Go to Katalog")),
+                                      }, child: const Text("Idi na Katalog")),
                                       ),
                                     ],
                                   ),
@@ -175,7 +175,7 @@ final Map<String,dynamic>_initialValue={};
                                     } on Exception catch (e) {
                                       showDialog(context: context, builder: (BuildContext context) => 
                                           AlertDialog(
-                                            title: const Text("Error"),
+                                            title: const Text("Greška"),
                                             content: Text(e.toString()),
                                             actions: [
                                               TextButton(onPressed: ()=>{
@@ -184,7 +184,7 @@ final Map<String,dynamic>_initialValue={};
                                             ],
                                           ));
                                     }
-                                  }, child: const Text("Account details"),
+                                  }, child: const Text("Detalji o računu"),
                                   ),
                                   ),
               

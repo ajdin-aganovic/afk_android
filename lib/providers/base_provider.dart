@@ -22,7 +22,11 @@ abstract class BaseProvider<T> with ChangeNotifier {
   IOClient? http;
 
   BaseProvider(String endpoint) {
-    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "https://10.0.2.2:7181/");
+    // _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "https://10.0.2.2:7181/"); //ZA LOKAL
+    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:7181/"); //ZA DOCKER
+    // _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://adresa:7181/"); //ZA PROVJERU NA TELEFONIMA ili drugim uređajima, unijeti u polje adresa, sopstvenu IPv4 adresu
+
+
     print("baseurl: $_baseUrl");
 
     if (_baseUrl!.endsWith("/") == false) {

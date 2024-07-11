@@ -199,7 +199,7 @@ class _KorisnikDetailsScreen extends State<KorisnikDetailsScreen> {
                             builder: (context) => const HomePage(),
                           ),
                         );
-                      }, child: const Text("Home page")),
+                      }, child: const Text("Početna strana")),
                     ],
                   ),
                   Column(

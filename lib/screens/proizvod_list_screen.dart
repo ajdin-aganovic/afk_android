@@ -27,7 +27,7 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
   CartProvider? _korpaProvider=null;
   final TextEditingController _nazivController=TextEditingController();
   final TextEditingController _sifraController=TextEditingController();
-
+  final TextEditingController _statusController=TextEditingController();
 
   final ScrollController _horizontal = ScrollController(),
       _vertical = ScrollController();
@@ -154,6 +154,15 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
                   controller:_sifraController,
                 ),
             ),
+
+            Expanded(
+              child: 
+              TextField(
+                  decoration: 
+                  const InputDecoration(labelText: "Prikaži sve proizvode", ), 
+                  controller:_statusController,
+                ),
+            ),
             
             ElevatedButton(onPressed:() async{
                 
@@ -161,6 +170,7 @@ class _ProizvodListScreen extends State<ProizvodListScreen> {
               filter: {
                 'NazivProizvoda':_nazivController.text, //ako ne radi pretraga, ovo promijeniti
                 'SifraProizvoda':_sifraController.text
+                //,'StateMachineProizvoda':_statusController.text
               }
             );
         
@@ -251,6 +261,20 @@ Widget _buildDataListView() {
                           MaterialPageRoute(builder: (context)=> ProizvodEditableScreen(proizvod: e,)
                           )
                       ) 
+                      }
+                     else if(e.stateMachine!.startsWith("draft")&&yxc==true)
+                      {
+                        print('odabrani: ${e.proizvodId}'),
+                        showDialog(context: context, builder: (BuildContext context) => 
+                          AlertDialog(
+                            title: const Text("Greška"),
+                            content: Text(e.naziv!+' nije dostupan na web stranici ili ga nema na skladištu.'),
+                            actions: [
+                              TextButton(onPressed: ()=>{
+                                Navigator.pop(context),
+                              }, child: const Text("OK"))
+                            ],
+                          )) 
                       }
                     else
                     {

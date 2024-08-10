@@ -13,13 +13,14 @@ import 'package:afk_android/providers/korisnik_provider.dart';
 import 'package:afk_android/providers/uloga_provider.dart';
 import 'package:afk_android/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 // import 'package:afk_android/api/client.dart';
 
 import 'models/korisnik.dart';
 
 void main() async {
-  // await dotenv.load(fileName: "lib/.env");
+  await dotenv.load(fileName: ".env");
   Stripe.publishableKey="pk_test_51NnoBzESdHn89Po93TLLgZ3wTUdjypvSv1WwSQPYxEfPXp2B8veWzxeMS2pVRci6UaVbLNW8xE90ND9JixodNVNX00uDND5nc3";
   
   runApp(MultiProvider(providers:

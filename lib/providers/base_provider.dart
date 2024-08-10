@@ -10,6 +10,9 @@ import 'package:http/http.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/io_client.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+
 import '../utils/util.dart';
 
 
@@ -17,15 +20,17 @@ import '../utils/util.dart';
 abstract class BaseProvider<T> with ChangeNotifier {
   static String? _baseUrl;
   String? _endpoint;
-
+  String get envValue=>dotenv.env['MOBILNA_DOCKER']??"https://google.com";
+  String get envValueInternet=>dotenv.env['MOBILNA_INTERNET']??"https://youtube.com";
+  String get envValueLokalna=>dotenv.env['MOBILNA_LOKALNA']??"https://instagram.com";
   HttpClient client = HttpClient();
   IOClient? http;
 
   BaseProvider(String endpoint) {
-    // _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "https://10.0.2.2:7181/"); //ZA LOKAL
-    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:7181/"); //ZA DOCKER
-    // _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://adresa:7181/"); //ZA PROVJERU NA TELEFONIMA ili drugim uređajima, unijeti u polje adresa, sopstvenu IPv4 adresu
 
+    // _baseUrl=envValue;
+    // _baseUrl=envValueLocal;
+    _baseUrl=envValueLokalna;
 
     print("baseurl: $_baseUrl");
 

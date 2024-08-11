@@ -28,9 +28,9 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   BaseProvider(String endpoint) {
 
-    // _baseUrl=envValue;
+    _baseUrl=envValue;
     // _baseUrl=envValueLocal;
-    _baseUrl=envValueLokalna;
+    // _baseUrl=envValueLokalna;
 
     print("baseurl: $_baseUrl");
 

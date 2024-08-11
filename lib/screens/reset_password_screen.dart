@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -21,12 +22,16 @@ class ContactPage extends StatefulWidget {
 
 
   final ScrollController _vertical = ScrollController(), _horizontal = ScrollController();
+  String get envServiceId=>dotenv.env['EMAILJS_SERVICE']??"https://google.com";
+  String get envTemplateId=>dotenv.env['EMAILJS_TEMPLATE']??"https://youtube.com";
+  String get envUserId=>dotenv.env['EMAILJS_USER']??"https://instagram.com";
+  String get envUrl=>dotenv.env['EMAILJS_URL']??"https://instagram.com";
 
   Future sendEmail()async{
-    final url=Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
-    const serviceId="service_smd9uuu";
-    const templateId="template_i9f6la9";
-    const userId="lHaUrvKDqOO16pVqT";
+    final url=Uri.parse(envUrl);
+    final serviceId=envServiceId;
+    final templateId=envTemplateId;
+    final userId=envUserId;
     final response=await http.post(url,
     headers:{'Content-Type':'application/json'},
     body: json.encode({
@@ -66,22 +71,6 @@ class _ContactPageState extends State<ContactPage> {
             child: SizedBox(
               height: 400,
               width: 300,
-        // child:  
-        //  Scrollbar(
-        //     controller: _vertical,
-        //     thumbVisibility: true,
-        //     trackVisibility: true,
-        //     child: Scrollbar(
-        //       controller: _horizontal,
-        //     thumbVisibility: true,
-        //     trackVisibility: true,
-        //     notificationPredicate: (notif)=> notif.depth==1,
-        //     child: SingleChildScrollView(
-        //       controller: _vertical,
-        //       scrollDirection: Axis.vertical,
-        //       child: SingleChildScrollView(
-        //         controller: _horizontal,
-        //         scrollDirection: Axis.horizontal,
               child: Form(
               child: Column(children: [
                 Expanded(
